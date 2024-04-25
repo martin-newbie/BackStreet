@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Entity
 {
     public float moveSpeed = 3f;
 
     float damage = 1f;
     bool isInit = false;
+    bool isAlive;
 
     Transform target;
     SpriteRenderer sprite;
@@ -17,11 +18,13 @@ public class Enemy : MonoBehaviour
         target = _target;
         sprite = GetComponent<SpriteRenderer>();
         isInit = true;
+        isAlive = true;
     }
 
     private void Update()
     {
         if (!isInit) return;
+        if (!isAlive) return;
 
         var dist = Vector3.Distance(target.position, transform.position);
         if (dist < 0.5f) return;
@@ -34,11 +37,26 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (!isAlive) return;
+
         if (collision.CompareTag("Player"))
         {
             // TODO : Replace yan to player class when it's ready
             var player = collision.GetComponent<Yan>();
             // player.Ondamage(damage);
+        }
+    }
+
+    public override void OnDamage(Entity from, float damage)
+    {
+        if (!isAlive) return;
+
+        hp -= damage;
+        // print damage text
+        
+        if(hp <= 0)
+        {
+            isAlive = false;
         }
     }
 }
