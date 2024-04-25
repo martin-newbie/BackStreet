@@ -16,17 +16,23 @@ public class Slash : MonoBehaviour
 
     public void AttackTrigger(Entity from, float damage)
     {
+        StartCoroutine(AttackRoutine(from, damage));
+    }
+
+    IEnumerator AttackRoutine(Entity from, float damage)
+    {
+        yield return null;
         bool flipY = transform.eulerAngles.z > 90 && transform.eulerAngles.z < 270;
         sprite.flipY = flipY;
 
         animator.SetTrigger("slash");
-        var colliderObjects = new List<Collider2D>();
-        Physics2D.OverlapCollider(atkCollider, filter, colliderObjects);
-        if (colliderObjects.Count == 0) return;
 
-        foreach (var item in colliderObjects)
+        var result = new List<Collider2D>();
+        if (atkCollider.OverlapCollider(filter, result) == 0) yield break;
+
+        foreach (var item in result)
         {
-            item.GetComponent<Enemy>().OnDamage(from, damage);
+            item.GetComponent<Entity>().OnDamage(from, damage);
         }
     }
 }
