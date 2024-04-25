@@ -12,6 +12,7 @@ public class InGameManager : MonoBehaviour
         Instance = this;
     }
 
+    public Transform camTr;
     public Transform playerPos;
     public Enemy[] enemyPrefabs;
     List<Enemy> curEnemy = new List<Enemy>();
@@ -40,9 +41,22 @@ public class InGameManager : MonoBehaviour
 
     void Update()
     {
+        CrossHairFollow();
+        CameraFollow();
+    }
+
+    void CrossHairFollow()
+    {
         var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         pos.z = 0;
         crossHair.position = pos;
+    }
+
+    void CameraFollow()
+    {
+        var finalPos = playerPos.position;
+        finalPos.z = -10;
+        camTr.position = Vector3.Lerp(camTr.position, finalPos, Time.deltaTime * 10f);
     }
 
     public Transform FindNearestTarget(Vector3 pos)

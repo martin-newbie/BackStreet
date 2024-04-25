@@ -406,6 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aeb24a6fb1831c4395383e24a1adea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camTr: {fileID: 519420032}
   playerPos: {fileID: 522823370}
   enemyPrefabs:
   - {fileID: 7923429801505816265, guid: c0d9fc8a0b2b4a74c8ca5ba9c53885ad, type: 3}
