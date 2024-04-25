@@ -63,8 +63,8 @@ public class Player : MonoBehaviour
 
     void SetAtkObjectRot()
     {
-        var target = InGameManager.Instance.FindNearestTarget(transform.position);
-        var dir = transform.position - target.position;
+        var target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var dir = transform.position - target;
         var rot = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         slash.transform.rotation = Quaternion.Euler(0, 0, rot);
     }

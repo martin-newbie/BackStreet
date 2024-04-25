@@ -15,6 +15,7 @@ public class InGameManager : MonoBehaviour
     public Transform playerPos;
     public Enemy enemyPrefab;
     List<Enemy> curEnemy = new List<Enemy>();
+    public Transform crossHair;
 
     int maximumCount = 100;
     float spawnTime = 1f;
@@ -35,6 +36,13 @@ public class InGameManager : MonoBehaviour
             yield return new WaitForSeconds(spawnTime);
             yield return new WaitUntil(() => curEnemy.Count < maximumCount);
         }
+    }
+
+    void Update()
+    {
+        var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        pos.z = 0;
+        crossHair.position = pos;
     }
 
     public Transform FindNearestTarget(Vector3 pos)
