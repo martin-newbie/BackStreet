@@ -13,7 +13,7 @@ public class InGameManager : MonoBehaviour
     }
 
     public Transform playerPos;
-    public Enemy enemyPrefab;
+    public Enemy[] enemyPrefabs;
     List<Enemy> curEnemy = new List<Enemy>();
     public Transform crossHair;
 
@@ -30,7 +30,7 @@ public class InGameManager : MonoBehaviour
         while (true)
         {
             var spawnPos = playerPos.position + (Vector3)(Random.insideUnitCircle.normalized * 15f);
-            var enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            var enemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], spawnPos, Quaternion.identity);
             enemy.InitEnemy(playerPos);
             curEnemy.Add(enemy);
             yield return new WaitForSeconds(spawnTime);
