@@ -21,6 +21,7 @@ public class DamageTextManager : MonoBehaviour
         {
             var text = Instantiate(damageText, transform);
             text.gameObject.SetActive(false);
+            text.GetComponent<MeshRenderer>().sortingOrder = 100;
             textPool.Push(text);
         }
     }
