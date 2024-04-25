@@ -28,7 +28,8 @@ public class DamageTextManager : MonoBehaviour
     public void PrintText(Vector3 pos, int damage, int dir)
     {
         var text = textPool.Pop();
-        text.text = damage.ToString("N3");
+        text.gameObject.SetActive(true);
+        text.text = damage.ToString("N0");
         StartCoroutine(TextMove(text, pos, dir));
     }
 

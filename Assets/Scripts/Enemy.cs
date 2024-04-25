@@ -52,7 +52,8 @@ public class Enemy : Entity
         if (!isAlive) return;
 
         hp -= damage;
-        // print damage text
+        int dir = transform.position.x > from.transform.position.x ? 1 : -1;
+        DamageTextManager.Instance.PrintText(transform.position, (int)damage, dir);
         
         if(hp <= 0)
         {

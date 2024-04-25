@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Entity
 {
 
     public Slash slash;
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
     {
         atkAble = false;
         SetAtkObjectRot();
-        slash.AttackTrigger(damage);
+        slash.AttackTrigger(this, damage);
         StartCoroutine(AttackCoolDown());
     }
 
@@ -67,5 +67,10 @@ public class Player : MonoBehaviour
         var dir = transform.position - target;
         var rot = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         slash.transform.rotation = Quaternion.Euler(0, 0, rot);
+    }
+
+    public override void OnDamage(Entity from, float damage)
+    {
+
     }
 }

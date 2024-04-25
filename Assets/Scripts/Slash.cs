@@ -14,7 +14,7 @@ public class Slash : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
     }
 
-    public void AttackTrigger(float damage)
+    public void AttackTrigger(Entity from, float damage)
     {
         bool flipY = transform.eulerAngles.z > 90 && transform.eulerAngles.z < 270;
         sprite.flipY = flipY;
@@ -26,7 +26,7 @@ public class Slash : MonoBehaviour
 
         foreach (var item in colliderObjects)
         {
-            // item.GetComponent<Enemy>().OnDamage(damage);
+            item.GetComponent<Enemy>().OnDamage(from, damage);
         }
     }
 }
