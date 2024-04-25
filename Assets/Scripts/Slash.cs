@@ -7,9 +7,18 @@ public class Slash : MonoBehaviour
     public Animator animator;
     public Collider2D atkCollider;
     public ContactFilter2D filter;
+    SpriteRenderer sprite;
+
+    private void Start()
+    {
+        sprite = GetComponent<SpriteRenderer>();
+    }
 
     public void AttackTrigger(float damage)
     {
+        bool flipY = transform.eulerAngles.z > 90 && transform.eulerAngles.z < 270;
+        sprite.flipY = flipY;
+
         animator.SetTrigger("slash");
         var colliderObjects = new List<Collider2D>();
         Physics2D.OverlapCollider(atkCollider, filter, colliderObjects);

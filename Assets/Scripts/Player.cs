@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Yan : MonoBehaviour
+public class Player : MonoBehaviour
 {
 
     public Slash slash;
@@ -31,7 +31,7 @@ public class Yan : MonoBehaviour
         MovementLogic();
     }
 
-    void MovementLogic()
+    protected void MovementLogic()
     {
         float axisX = Input.GetAxisRaw("Horizontal");
         float axisY = Input.GetAxisRaw("Vertical");
@@ -46,9 +46,10 @@ public class Yan : MonoBehaviour
         }
     }
 
-    void AttackLogic()
+    protected void AttackLogic()
     {
         atkAble = false;
+        SetAtkObjectRot();
         slash.AttackTrigger(damage);
         StartCoroutine(AttackCoolDown());
     }
@@ -58,5 +59,13 @@ public class Yan : MonoBehaviour
         yield return new WaitForSeconds(atkTimer);
         atkAble = true;
         yield break;
+    }
+
+    void SetAtkObjectRot()
+    {
+        var target = InGameManager.Instance.FindNearestTarget(transform.position);
+        var dir = transform.position - target.position;
+        var rot = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        slash.transform.rotation = Quaternion.Euler(0, 0, rot);
     }
 }
