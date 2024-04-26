@@ -32,7 +32,7 @@ public class InGameManager : MonoBehaviour
         {
             var spawnPos = playerPos.position + (Vector3)(Random.insideUnitCircle.normalized * 15f);
             var enemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], spawnPos, Quaternion.identity);
-            enemy.InitEnemy(playerPos);
+            enemy.InitEnemy(playerPos, () => { curEnemy.Remove(enemy); });
             curEnemy.Add(enemy);
             yield return new WaitForSeconds(spawnTime);
             yield return new WaitUntil(() => curEnemy.Count < maximumCount);

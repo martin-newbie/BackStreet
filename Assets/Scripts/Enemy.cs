@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,13 +13,15 @@ public class Enemy : Entity
 
     Transform target;
     SpriteRenderer sprite;
+    Action retireAction;
 
-    public void InitEnemy(Transform _target)
+    public void InitEnemy(Transform _target, Action retire)
     {
         target = _target;
         sprite = GetComponent<SpriteRenderer>();
         isInit = true;
         isAlive = true;
+        retireAction = retire;
     }
 
     private void Update()
@@ -58,6 +61,7 @@ public class Enemy : Entity
         if(hp <= 0)
         {
             isAlive = false;
+            retireAction?.Invoke();
         }
     }
 }
