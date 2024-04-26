@@ -193,7 +193,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 30:59
+  m_Text: 00:00
 --- !u!222 &43357718
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -852,6 +852,7 @@ MonoBehaviour:
   expItemPrefab: {fileID: 8541732552583229218, guid: b82adef1c95b86d4790271f022745cd6, type: 3}
   expGauge: {fileID: 112641797}
   hpGauge: {fileID: 938247102}
+  playTimeText: {fileID: 43357717}
 --- !u!1 &694994601
 GameObject:
   m_ObjectHideFlags: 0

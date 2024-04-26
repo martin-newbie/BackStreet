@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class InGameManager : MonoBehaviour
 {
@@ -25,6 +28,10 @@ public class InGameManager : MonoBehaviour
     [Header("Interface")]
     public ExpGaugeBox expGauge;
     public HpGaugeBox hpGauge;
+    public Text playTimeText;
+
+    float playTime;
+    TimeSpan prevTime;
 
     void Start()
     {
@@ -56,6 +63,7 @@ public class InGameManager : MonoBehaviour
     {
         CrossHairFollow();
         CameraFollow();
+        UpdatePlayTime();
     }
 
     void CrossHairFollow()
@@ -70,6 +78,16 @@ public class InGameManager : MonoBehaviour
         var finalPos = curPlayer.transform.position;
         finalPos.z = -10;
         camTr.position = Vector3.Lerp(camTr.position, finalPos, Time.deltaTime * 10f);
+    }
+
+    void UpdatePlayTime()
+    {
+        playTime += Time.deltaTime;
+        TimeSpan time = TimeSpan.FromSeconds(playTime);
+        if (prevTime.Seconds != time.Seconds)
+        {
+            playTimeText.text = time.ToString(@"mm\:ss");
+        }
     }
 
     public Transform FindNearestTarget(Vector3 pos)
