@@ -7,15 +7,15 @@ public class Enemy : Entity
 {
     public float moveSpeed = 3f;
 
-    int damage = 1;
-    bool isInit = false;
-    bool isAlive;
+    protected int damage = 1;
+    protected bool isInit = false;
+    protected bool isAlive;
 
-    Transform target;
-    SpriteRenderer sprite;
-    Action<Enemy> retireAction;
+    protected Transform target;
+    protected SpriteRenderer sprite;
+    protected Action<Enemy> retireAction;
 
-    public void InitEnemy(Transform _target, Action<Enemy> retire)
+    public virtual void InitEnemy(Transform _target, Action<Enemy> retire)
     {
         target = _target;
         sprite = GetComponent<SpriteRenderer>();
@@ -29,8 +29,16 @@ public class Enemy : Entity
         if (!isInit) return;
         if (!isAlive) return;
 
+        MoveLogic();
+    }
+
+    protected virtual void MoveLogic()
+    {
         var dist = Vector3.Distance(target.position, transform.position);
-        if (dist < 0.5f) return;
+        if (dist < 0.5f)
+        {
+            return;
+        }
 
         var dir = (target.position - transform.position).normalized;
         transform.Translate(dir * Time.deltaTime * moveSpeed);
@@ -38,16 +46,21 @@ public class Enemy : Entity
         sprite.flipX = dir.x > 0;
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    protected virtual void OnTriggerStay2D(Collider2D collision)
     {
         if (!isAlive) return;
 
         if (collision.CompareTag("Player"))
         {
-            // TODO : Replace yan to player class when it's ready
-            var player = collision.GetComponent<Player>();
-            player.OnDamage(this, damage);
+            TriggerStayWithPlayer(collision);
         }
+    }
+
+    protected virtual void TriggerStayWithPlayer(Collider2D collision)
+    {
+        // TODO : Replace yan to player class when it's ready
+        var player = collision.GetComponent<Player>();
+        player.OnDamage(this, damage);
     }
 
     public override void OnDamage(Entity from, int damage)
@@ -57,8 +70,8 @@ public class Enemy : Entity
         hp -= damage;
         int dir = transform.position.x > from.transform.position.x ? 1 : -1;
         DamageTextManager.Instance.PrintText(transform.position, (int)damage, dir);
-        
-        if(hp <= 0)
+
+        if (hp <= 0)
         {
             isAlive = false;
             retireAction?.Invoke(this);

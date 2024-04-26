@@ -17,7 +17,8 @@ public class InGameManager : MonoBehaviour
 
     public Transform camTr;
     public Player curPlayer;
-    public Enemy[] enemyPrefabs;
+    public Enemy enemyPrefab;
+    public SweeperBuster buster;
     List<Enemy> curEnemy = new List<Enemy>();
     public Transform crossHair;
     public ExpItem expItemPrefab;
@@ -36,6 +37,7 @@ public class InGameManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(EnemySpawnLogic());
+        StartCoroutine(BusterSpawnLogic());
     }
 
     IEnumerator EnemySpawnLogic()
@@ -43,7 +45,7 @@ public class InGameManager : MonoBehaviour
         while (true)
         {
             var spawnPos = curPlayer.transform.position + (Vector3)(Random.insideUnitCircle.normalized * 15f);
-            var enemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], spawnPos, Quaternion.identity);
+            var enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
             enemy.InitEnemy(curPlayer.transform, CommonEnemyRetireAction);
             curEnemy.Add(enemy);
             yield return new WaitForSeconds(spawnTime);
@@ -51,12 +53,25 @@ public class InGameManager : MonoBehaviour
         }
     }
 
-    void CommonEnemyRetireAction(Enemy enemy)
+    IEnumerator BusterSpawnLogic()
     {
-        var pos = enemy.transform.position;
+        while (true)
+        {
+            var spawnPos = curPlayer.transform.position + (Vector3)(Random.insideUnitCircle.normalized * 15f);
+            var enemy = Instantiate(buster, spawnPos, Quaternion.identity);
+            enemy.InitEnemy(curPlayer.transform, CommonEnemyRetireAction);
+            curEnemy.Add(enemy);
+            yield return new WaitForSeconds(2f);
+            yield return new WaitUntil(() => curEnemy.Count < maximumCount);
+        }
+    }
+
+    void CommonEnemyRetireAction(Enemy subject)
+    {
+        var pos = subject.transform.position;
         SpawnExpItem(pos);
-        curEnemy.Remove(enemy);
-        Destroy(enemy.gameObject);
+        curEnemy.Remove(subject);
+        Destroy(subject.gameObject);
     }
 
     void Update()
