@@ -15,7 +15,7 @@ public class Player : Entity
     float atkTimer = 2f;
     float damage = 1f;
     float moveSpeed = 5f;
-    float damageCoolTime = 0.2f;
+    float damageCoolTime = 0.5f;
 
     void Start()
     {
@@ -76,6 +76,10 @@ public class Player : Entity
         if (!damagedAble) return;
 
         hp -= damage;
+
+        int dir = transform.position.x > from.transform.position.x ? 1 : -1;
+        DamageTextManager.Instance.PrintText(transform.position, (int)damage, dir);
+
         if(hp <= 0)
         {
 

@@ -45,8 +45,8 @@ public class Enemy : Entity
         if (collision.CompareTag("Player"))
         {
             // TODO : Replace yan to player class when it's ready
-            var player = collision.GetComponent<Yan>();
-            // player.Ondamage(damage);
+            var player = collision.GetComponent<Player>();
+            player.OnDamage(this, damage);
         }
     }
 

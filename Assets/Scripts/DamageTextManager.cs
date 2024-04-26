@@ -36,12 +36,12 @@ public class DamageTextManager : MonoBehaviour
 
     IEnumerator TextMove(TextMesh obj, Vector3 pos, int dir)
     {
-        Vector3 targetPos = pos + Vector3.right * dir;
+        Vector3 targetPos = pos + new Vector3(0.5f, 0, 0) * dir;
         float timer = 0f;
-        float dur = 1f;
+        float dur = 0.5f;
         while (timer < dur)
         {
-            obj.transform.position = Vector3.Lerp(pos, targetPos, 1 - Mathf.Pow(1 - (timer / dur), 3));
+            obj.transform.position = GetParabola(pos, targetPos, 0.5f, timer / dur);
             timer += Time.deltaTime;
             yield return null;
         }
@@ -49,4 +49,12 @@ public class DamageTextManager : MonoBehaviour
         textPool.Push(obj);
         yield break;
     }
+
+    public Vector3 GetParabola(Vector3 a, Vector3 b, float height, float time)
+    {
+        float target_X = a.x + (b.x - a.x) * time;
+        float target_Y = a.y + ((b.y - a.y)) * time + height * (1 - (Mathf.Abs(0.5f - time) / 0.5f) * (Mathf.Abs(0.5f - time) / 0.5f));
+        return new Vector3(target_X, target_Y);
+    }
+
 }
