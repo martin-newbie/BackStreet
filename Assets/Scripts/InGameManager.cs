@@ -13,7 +13,7 @@ public class InGameManager : MonoBehaviour
     }
 
     public Transform camTr;
-    public Transform playerPos;
+    public Player curPlayer;
     public Enemy[] enemyPrefabs;
     List<Enemy> curEnemy = new List<Enemy>();
     public Transform crossHair;
@@ -21,6 +21,10 @@ public class InGameManager : MonoBehaviour
 
     int maximumCount = 100;
     float spawnTime = 1f;
+
+    [Header("Interface")]
+    public ExpGaugeBox expGauge;
+    public HpGaugeBox hpGauge;
 
     void Start()
     {
@@ -31,9 +35,9 @@ public class InGameManager : MonoBehaviour
     {
         while (true)
         {
-            var spawnPos = playerPos.position + (Vector3)(Random.insideUnitCircle.normalized * 15f);
+            var spawnPos = curPlayer.transform.position + (Vector3)(Random.insideUnitCircle.normalized * 15f);
             var enemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], spawnPos, Quaternion.identity);
-            enemy.InitEnemy(playerPos, CommonEnemyRetireAction);
+            enemy.InitEnemy(curPlayer.transform, CommonEnemyRetireAction);
             curEnemy.Add(enemy);
             yield return new WaitForSeconds(spawnTime);
             yield return new WaitUntil(() => curEnemy.Count < maximumCount);
@@ -63,7 +67,7 @@ public class InGameManager : MonoBehaviour
 
     void CameraFollow()
     {
-        var finalPos = playerPos.position;
+        var finalPos = curPlayer.transform.position;
         finalPos.z = -10;
         camTr.position = Vector3.Lerp(camTr.position, finalPos, Time.deltaTime * 10f);
     }
@@ -77,5 +81,10 @@ public class InGameManager : MonoBehaviour
     {
         var obj = Instantiate(expItemPrefab, pos, Quaternion.identity);
         return obj;
+    }
+
+    public void IncreaseExp(int exp)
+    {
+        curPlayer.IncreaseExp(exp);
     }
 }

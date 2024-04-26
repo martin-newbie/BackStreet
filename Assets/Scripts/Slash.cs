@@ -14,12 +14,12 @@ public class Slash : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
     }
 
-    public void AttackTrigger(Entity from, float damage)
+    public void AttackTrigger(Entity from, int damage)
     {
         StartCoroutine(AttackRoutine(from, damage));
     }
 
-    IEnumerator AttackRoutine(Entity from, float damage)
+    IEnumerator AttackRoutine(Entity from, int damage)
     {
         yield return null;
         bool flipY = transform.eulerAngles.z > 90 && transform.eulerAngles.z < 270;

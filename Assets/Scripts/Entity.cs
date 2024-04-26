@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-    public float hp;
+    public int hp;
 
-    public abstract void OnDamage(Entity from, float damage);
+    public abstract void OnDamage(Entity from, int damage);
 }

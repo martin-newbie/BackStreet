@@ -7,7 +7,7 @@ public class Enemy : Entity
 {
     public float moveSpeed = 3f;
 
-    float damage = 1f;
+    int damage = 1;
     bool isInit = false;
     bool isAlive;
 
@@ -50,7 +50,7 @@ public class Enemy : Entity
         }
     }
 
-    public override void OnDamage(Entity from, float damage)
+    public override void OnDamage(Entity from, int damage)
     {
         if (!isAlive) return;
 

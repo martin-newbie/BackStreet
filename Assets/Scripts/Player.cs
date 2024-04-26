@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Player : Entity
 {
-
     public Slash slash;
 
     SpriteRenderer sprite;
@@ -13,14 +12,19 @@ public class Player : Entity
     bool atkAble = true;
     bool damagedAble = true;
     float atkTimer = 2f;
-    float damage = 1f;
     float moveSpeed = 5f;
     float damageCoolTime = 0.5f;
+    int damage = 1;
+    int curExp;
 
     void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+
+        hp = 100;
+        InGameManager.Instance.expGauge.SetGauge(0, GetMaxExp());
+        InGameManager.Instance.hpGauge.SetGauge(hp, 100);
     }
 
     void Update()
@@ -71,14 +75,15 @@ public class Player : Entity
         slash.transform.rotation = Quaternion.Euler(0, 0, rot);
     }
 
-    public override void OnDamage(Entity from, float damage)
+    public override void OnDamage(Entity from, int damage)
     {
         if (!damagedAble) return;
 
         hp -= damage;
+        InGameManager.Instance.hpGauge.SetGauge(hp, 100);
 
         int dir = transform.position.x > from.transform.position.x ? 1 : -1;
-        DamageTextManager.Instance.PrintText(transform.position, (int)damage, dir);
+        DamageTextManager.Instance.PrintText(transform.position, damage, dir);
 
         if(hp <= 0)
         {
@@ -89,9 +94,26 @@ public class Player : Entity
         StartCoroutine(DamageCool());
     }
 
+    public void IncreaseExp(int exp)
+    {
+        curExp += exp;
+        if(curExp >= GetMaxExp())
+        {
+            curExp -= GetMaxExp();
+            // exp level up
+        }
+
+        InGameManager.Instance.expGauge.SetGauge(curExp, GetMaxExp());
+    }
+
     IEnumerator DamageCool()
     {
         yield return new WaitForSeconds(damageCoolTime);
         damagedAble = true;
+    }
+
+    int GetMaxExp()
+    {
+        return 100;
     }
 }

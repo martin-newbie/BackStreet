@@ -38,7 +38,7 @@ public class ExpItem : MonoBehaviour
         }
 
         // move end, reach to player
-        // exp up
+        InGameManager.Instance.IncreaseExp(1);
         Destroy(gameObject);
     }
 }
