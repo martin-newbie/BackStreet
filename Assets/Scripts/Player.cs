@@ -11,9 +11,11 @@ public class Player : Entity
     Animator animator;
 
     bool atkAble = true;
+    bool damagedAble = true;
     float atkTimer = 2f;
     float damage = 1f;
     float moveSpeed = 5f;
+    float damageCoolTime = 0.2f;
 
     void Start()
     {
@@ -71,6 +73,21 @@ public class Player : Entity
 
     public override void OnDamage(Entity from, float damage)
     {
+        if (!damagedAble) return;
 
+        hp -= damage;
+        if(hp <= 0)
+        {
+
+        }
+
+        damagedAble = false;
+        StartCoroutine(DamageCool());
+    }
+
+    IEnumerator DamageCool()
+    {
+        yield return new WaitForSeconds(damageCoolTime);
+        damagedAble = true;
     }
 }

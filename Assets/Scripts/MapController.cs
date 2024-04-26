@@ -51,6 +51,7 @@ public class MapController : MonoBehaviour
     {
         Map obj = Instantiate(map, transform);
         obj.transform.position = GetPositionOfTile(x, y);
+        obj.InitMap(x, y);
         mapList.Add(obj);
         return obj;
     }
