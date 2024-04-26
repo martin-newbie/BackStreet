@@ -510,6 +510,7 @@ MonoBehaviour:
   - {fileID: 7923429801505816265, guid: a8ff04374577a3a4f85b6a0e6bfe0bba, type: 3}
   - {fileID: 7923429801505816265, guid: 5e3fd510d856dc241b24b0e5861d13b9, type: 3}
   crossHair: {fileID: 1752233795}
+  expItemPrefab: {fileID: 8541732552583229218, guid: b82adef1c95b86d4790271f022745cd6, type: 3}
 --- !u!1 &781976482
 GameObject:
   m_ObjectHideFlags: 0

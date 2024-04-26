@@ -13,9 +13,9 @@ public class Enemy : Entity
 
     Transform target;
     SpriteRenderer sprite;
-    Action retireAction;
+    Action<Enemy> retireAction;
 
-    public void InitEnemy(Transform _target, Action retire)
+    public void InitEnemy(Transform _target, Action<Enemy> retire)
     {
         target = _target;
         sprite = GetComponent<SpriteRenderer>();
@@ -61,7 +61,7 @@ public class Enemy : Entity
         if(hp <= 0)
         {
             isAlive = false;
-            retireAction?.Invoke();
+            retireAction?.Invoke(this);
         }
     }
 }
