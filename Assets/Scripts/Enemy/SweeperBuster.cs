@@ -7,21 +7,47 @@ public class SweeperBuster : Enemy
 {
     Vector3 moveDir;
     public BusterExplosion explosive;
+    int moveState;
+
+    float rangeInside = 8f;
+    float rangeOutside = 11f;
 
     public override void InitEnemy(Transform _target, Action<Enemy> retire)
     {
         base.InitEnemy(_target, retire);
-        moveDir = (target.position - transform.position).normalized;
     }
 
     protected override void MoveLogic()
     {
+        switch (moveState)
+        {
+            case 0:
+                BeforeInside();
+                break;
+            case 1:
+                InsideRange();
+                break;
+        }
+
         transform.Translate(moveDir * Time.deltaTime * moveSpeed);
         sprite.flipX = moveDir.x > 0;
+    }
 
-        if (Vector3.Distance(target.position, transform.position) > 25f)
+    void BeforeInside()
+    {
+        moveDir = (target.position - transform.position).normalized;
+
+        if (Vector3.Distance(transform.position, target.position) < rangeInside)
         {
-            retireAction?.Invoke(this);
+            moveState = 1;
+        }
+    }
+
+    void InsideRange()
+    {
+        if(Vector3.Distance(transform.position, target.position) > rangeOutside)
+        {
+            moveState = 0;
         }
     }
 

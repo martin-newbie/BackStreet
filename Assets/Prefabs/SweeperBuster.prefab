@@ -155,5 +155,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
-  moveSpeed: 3
+  moveSpeed: 5
   explosive: {fileID: 1200826885737862764, guid: b95b9038e7dd8b9489323212fc9ea932, type: 3}
