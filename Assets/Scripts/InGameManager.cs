@@ -120,4 +120,9 @@ public class InGameManager : MonoBehaviour
     {
         curPlayer.IncreaseExp(exp);
     }
+
+    public int GetDrawOrder(int yPos)
+    {
+        return (int)curPlayer.transform.position.y - yPos;
+    }
 }
