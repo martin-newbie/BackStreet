@@ -51,7 +51,7 @@ public class SweeperBuster : Enemy
         }
     }
 
-    protected override void TriggerStayWithPlayer(Collider2D collision)
+    protected override void ContactStayWithPlayer(GameObject collision)
     {
         retireAction?.Invoke(this);
         RetireExplosion();

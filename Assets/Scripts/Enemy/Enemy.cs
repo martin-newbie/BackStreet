@@ -47,20 +47,20 @@ public class Enemy : Entity
         sprite.flipX = dir.x > 0;
     }
 
-    protected virtual void OnTriggerStay2D(Collider2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (!isAlive) return;
 
-        if (collision.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            TriggerStayWithPlayer(collision);
+            ContactStayWithPlayer(collision.gameObject);
         }
     }
 
-    protected virtual void TriggerStayWithPlayer(Collider2D collision)
+    protected virtual void ContactStayWithPlayer(GameObject obj)
     {
         // TODO : Replace yan to player class when it's ready
-        var player = collision.GetComponent<Player>();
+        var player = obj.GetComponent<Player>();
         player.OnDamage(this, damage);
     }
 

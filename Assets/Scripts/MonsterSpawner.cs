@@ -9,23 +9,26 @@ public class MonsterSpawner : MonoBehaviour
 
     List<Enemy> curEnemy = new List<Enemy>();
     SpawnData commonWave;
+    SpawnData busterWave;
 
     void Start()
     {
         // 333... 1978
         commonWave = new SpawnData(0, 0, 0, 80f, 20f, 5f, 80f);
+        busterWave = new SpawnData(1, 1, 60f, 50f, 30f, 5f, 70f);
     }
 
     void Update()
     {
-        SpawnLogic(InGameManager.Instance.playTime);
+        SpawnLogic(InGameManager.Instance.playTime, commonWave);
+        SpawnLogic(InGameManager.Instance.playTime, busterWave);
     }
 
-    void SpawnLogic(float gameTime)
+    void SpawnLogic(float gameTime, SpawnData spawnData)
     {
-        if (commonWave.GetSpawnProba(gameTime))
+        if (spawnData.GetSpawnProba(gameTime))
         {
-            var obj = enemies[commonWave.enemyIdx];
+            var obj = enemies[spawnData.enemyIdx];
 
             var spawnPos = InGameManager.Instance.curPlayer.transform.position + (Vector3)(Random.insideUnitCircle.normalized * 15f);
             var enemy = Instantiate(obj, spawnPos, Quaternion.identity);
