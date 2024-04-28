@@ -12,7 +12,8 @@ public class MonsterSpawner : MonoBehaviour
 
     void Start()
     {
-        commonWave = new SpawnData(0, 0, 0, 50f, 20f, 5f, 45f);
+        // 333... 1978
+        commonWave = new SpawnData(0, 0, 0, 80f, 20f, 5f, 80f);
     }
 
     void Update()
