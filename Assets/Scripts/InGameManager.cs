@@ -17,61 +17,19 @@ public class InGameManager : MonoBehaviour
 
     public Transform camTr;
     public Player curPlayer;
-    public Enemy enemyPrefab;
-    public SweeperBuster buster;
-    List<Enemy> curEnemy = new List<Enemy>();
     public Transform crossHair;
     public ExpItem expItemPrefab;
-
-    int maximumCount = 100;
-    float spawnTime = 1f;
 
     [Header("Interface")]
     public ExpGaugeBox expGauge;
     public HpGaugeBox hpGauge;
     public Text playTimeText;
 
-    float playTime;
+    [HideInInspector] public float playTime;
     TimeSpan prevTime;
 
     void Start()
     {
-        StartCoroutine(EnemySpawnLogic());
-        StartCoroutine(BusterSpawnLogic());
-    }
-
-    IEnumerator EnemySpawnLogic()
-    {
-        while (true)
-        {
-            var spawnPos = curPlayer.transform.position + (Vector3)(Random.insideUnitCircle.normalized * 15f);
-            var enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-            enemy.InitEnemy(curPlayer.transform, CommonEnemyRetireAction);
-            curEnemy.Add(enemy);
-            yield return new WaitForSeconds(spawnTime);
-            yield return new WaitUntil(() => curEnemy.Count < maximumCount);
-        }
-    }
-
-    IEnumerator BusterSpawnLogic()
-    {
-        while (true)
-        {
-            var spawnPos = curPlayer.transform.position + (Vector3)(Random.insideUnitCircle.normalized * 15f);
-            var enemy = Instantiate(buster, spawnPos, Quaternion.identity);
-            enemy.InitEnemy(curPlayer.transform, CommonEnemyRetireAction);
-            curEnemy.Add(enemy);
-            yield return new WaitForSeconds(2f);
-            yield return new WaitUntil(() => curEnemy.Count < maximumCount);
-        }
-    }
-
-    void CommonEnemyRetireAction(Enemy subject)
-    {
-        var pos = subject.transform.position;
-        SpawnExpItem(pos);
-        curEnemy.Remove(subject);
-        Destroy(subject.gameObject);
     }
 
     void Update()
@@ -103,11 +61,6 @@ public class InGameManager : MonoBehaviour
         {
             playTimeText.text = time.ToString(@"mm\:ss");
         }
-    }
-
-    public Transform FindNearestTarget(Vector3 pos)
-    {
-        return curEnemy.OrderBy((item) => Vector3.Distance(item.transform.position, pos)).ElementAt(0).transform;
     }
 
     public ExpItem SpawnExpItem(Vector3 pos)

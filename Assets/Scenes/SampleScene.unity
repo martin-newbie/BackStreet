@@ -826,7 +826,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1202627238}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -844,13 +845,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camTr: {fileID: 519420032}
   curPlayer: {fileID: 522823374}
-  enemyPrefab: {fileID: 6506043589440998332, guid: c0d9fc8a0b2b4a74c8ca5ba9c53885ad, type: 3}
-  buster: {fileID: 773543354508093994, guid: 2c2351ca66e813a4a972fdc62012bcd2, type: 3}
   crossHair: {fileID: 1752233795}
   expItemPrefab: {fileID: 8541732552583229218, guid: b82adef1c95b86d4790271f022745cd6, type: 3}
   expGauge: {fileID: 112641797}
   hpGauge: {fileID: 938247102}
   playTimeText: {fileID: 43357717}
+  playTime: 0
 --- !u!1 &694994601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1412,6 +1412,53 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+--- !u!1 &1202627237
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1202627238}
+  - component: {fileID: 1202627239}
+  m_Layer: 0
+  m_Name: SpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1202627238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202627237}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 690417841}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1202627239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202627237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e7ab19a98e2f141b3a551a9ae84d69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies:
+  - {fileID: 6506043589440998332, guid: c0d9fc8a0b2b4a74c8ca5ba9c53885ad, type: 3}
+  - {fileID: 773543354508093994, guid: 2c2351ca66e813a4a972fdc62012bcd2, type: 3}
+  - {fileID: 7664174017426503908, guid: 61a605a1e35b2554180914d4c9ef9e95, type: 3}
 --- !u!1 &1343323172
 GameObject:
   m_ObjectHideFlags: 0
