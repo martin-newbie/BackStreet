@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : Entity
 {
     public Slash slash;
+    public FieldHpBar hpBar;
 
     SpriteRenderer sprite;
     Animator animator;
@@ -79,6 +80,7 @@ public class Player : Entity
     {
         if (!damagedAble) return;
 
+        hpBar.StartHpMove(100, hp, hp - damage);
         hp -= damage;
         InGameManager.Instance.hpGauge.SetGauge(hp, 100);
 
