@@ -108,8 +108,10 @@ public class Player : Entity
 
     IEnumerator DamageCool()
     {
+        sprite.color = new Color(1, 1, 1, 0.5f);
         yield return new WaitForSeconds(damageCoolTime);
         damagedAble = true;
+        sprite.color = new Color(1, 1, 1, 1f);
     }
 
     int GetMaxExp()
