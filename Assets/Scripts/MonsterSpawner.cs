@@ -83,7 +83,7 @@ public class SpawnData
 
     public bool GetSpawnProba(float gameTime)
     {
-        if(spawnTime < gameTime)
+        if(spawnTime > gameTime)
         {
             return false;
         }
