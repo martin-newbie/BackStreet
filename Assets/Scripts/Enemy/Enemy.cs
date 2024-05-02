@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
+    public Material defaultMat;
+    public Material damagedMat;
+
     public float moveSpeed = 3f;
 
     protected int damage = 1;
@@ -77,5 +80,16 @@ public class Enemy : Entity
             isAlive = false;
             retireAction?.Invoke(this);
         }
+        else
+        {
+            StartCoroutine(DamagedMatChange(0.1f));
+        }
+    }
+
+    IEnumerator DamagedMatChange(float dur)
+    {
+        sprite.material = damagedMat;
+        yield return new WaitForSeconds(dur);
+        sprite.material = defaultMat;
     }
 }
