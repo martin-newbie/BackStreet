@@ -10,7 +10,7 @@ public class MonsterSpawner : MonoBehaviour
         Instance = this;
     }
 
-    public Enemy[] enemies;
+    public Enemy enemyPrefab;
 
     List<Enemy> curEnemy = new List<Enemy>();
     SpawnData commonWave;
@@ -20,7 +20,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         // 333... 1978
         commonWave = new SpawnData(0, 0, 0, 80f, 20f, 5f, 80f);
-        busterWave = new SpawnData(1, 1, 60f, 50f, 30f, 5f, 70f);
+        busterWave = new SpawnData(1, 1, 15f, 50f, 30f, 5f, 70f);
     }
 
     void Update()
@@ -33,8 +33,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         if (spawnData.GetSpawnProba(gameTime))
         {
-            var obj = enemies[spawnData.enemyIdx];
-
+            var obj = enemyPrefab;
             var spawnPos = InGameManager.Instance.curPlayer.transform.position + (Vector3)(Random.insideUnitCircle.normalized * 15f);
             var enemy = Instantiate(obj, spawnPos, Quaternion.identity);
             enemy.InitEnemy(GetEnemeyData(spawnData.enemyIdx), InGameManager.Instance.curPlayer.transform, CommonEnemyRetireAction);
@@ -57,7 +56,7 @@ public class MonsterSpawner : MonoBehaviour
             case 0:
                 return new EnemyData(0, 1, 0.4f, 3f, 1, 3, 1);
             case 1:
-                return new EnemyData(0, 0, 0.4f, 5f, 3, 2, 1);
+                return new EnemyData(0, 2, 0.4f, 5f, 3, 2, 1);
             case 2:
                 return new EnemyData(1, 0, 0.6f, 3f, 2, 15, 2);
             default:

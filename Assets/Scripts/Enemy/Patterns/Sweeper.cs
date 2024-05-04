@@ -11,6 +11,16 @@ public class Sweeper : IMovementPattern
 
     public void Movement(Transform target, Transform transform, SpriteRenderer sprite, float moveSpeed)
     {
-        throw new System.NotImplementedException();
+        var dist = Vector3.Distance(target.position, transform.position);
+        if (dist < 0.5f)
+        {
+            return;
+        }
+
+        var dir = (target.position - transform.position).normalized;
+        transform.Translate(dir * Time.deltaTime * moveSpeed);
+
+        sprite.sortingOrder = InGameManager.Instance.GetDrawOrder((int)transform.position.y);
+        sprite.flipX = dir.x > 0;
     }
 }
