@@ -10,21 +10,30 @@ public class Enemy : Entity
 
     public float moveSpeed = 3f;
 
-    protected int damage = 1;
-    protected bool isInit = false;
-    protected bool isAlive;
+    [HideInInspector] public int damage = 1;
+    [HideInInspector] public bool isInit = false;
+    [HideInInspector] public bool isAlive;
 
-    protected Transform target;
-    protected SpriteRenderer sprite;
-    protected Action<Enemy> retireAction;
+    [HideInInspector] public Transform target;
+    [HideInInspector] public SpriteRenderer sprite;
+    [HideInInspector] public Action<Enemy> retireAction;
+    [HideInInspector] public Animator animator;
 
-    public virtual void InitEnemy(Transform _target, Action<Enemy> retire)
+    [HideInInspector] public EnemyData enemyData;
+    IMovementPattern movementPattern;
+
+    public virtual void InitEnemy(EnemyData _enemyData, Transform _target, Action<Enemy> retire)
     {
         target = _target;
         sprite = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         isInit = true;
         isAlive = true;
         retireAction = retire;
+
+        enemyData = _enemyData;
+        movementPattern = MonsterSpawner.Instance.GetMovementPattern(enemyData.movementPattern);
+        movementPattern.Init(this);
     }
 
     private void Update()
@@ -37,17 +46,8 @@ public class Enemy : Entity
 
     protected virtual void MoveLogic()
     {
-        var dist = Vector3.Distance(target.position, transform.position);
-        if (dist < 0.5f)
-        {
-            return;
-        }
-
-        var dir = (target.position - transform.position).normalized;
-        transform.Translate(dir * Time.deltaTime * moveSpeed);
-
-        sprite.sortingOrder = InGameManager.Instance.GetDrawOrder((int)transform.position.y);
-        sprite.flipX = dir.x > 0;
+        movementPattern?.Movement(target, transform, sprite, moveSpeed);
+        return;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -92,4 +92,10 @@ public class Enemy : Entity
         yield return new WaitForSeconds(dur);
         sprite.material = defaultMat;
     }
+}
+
+public interface IMovementPattern
+{
+    void Init(Enemy subject);
+    void Movement(Transform target, Transform transform, SpriteRenderer sprite, float moveSpeed);
 }

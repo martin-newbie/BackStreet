@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour
 {
+    public static MonsterSpawner Instance = null;
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public Enemy[] enemies;
 
@@ -32,7 +37,7 @@ public class MonsterSpawner : MonoBehaviour
 
             var spawnPos = InGameManager.Instance.curPlayer.transform.position + (Vector3)(Random.insideUnitCircle.normalized * 15f);
             var enemy = Instantiate(obj, spawnPos, Quaternion.identity);
-            enemy.InitEnemy(InGameManager.Instance.curPlayer.transform, CommonEnemyRetireAction);
+            enemy.InitEnemy(GetEnemeyData(spawnData.enemyIdx), InGameManager.Instance.curPlayer.transform, CommonEnemyRetireAction);
             curEnemy.Add(enemy);
         }
     }
@@ -45,6 +50,36 @@ public class MonsterSpawner : MonoBehaviour
         Destroy(subject.gameObject);
     }
 
+    EnemyData GetEnemeyData(int enemyIdx)
+    {
+        EnemyData data = null;
+        switch (enemyIdx)
+        {
+            case 0:
+                // common sweeper
+                break;
+            default:
+                data = null;
+                break;
+        }
+
+        return data;
+    }
+
+    public IMovementPattern GetMovementPattern(int idx)
+    {
+        switch (idx)
+        {
+            case 0:
+                return new CommonPattern();
+            case 1:
+                return new Sweeper();
+            case 2:
+                return new SweeperBuster();
+            default:
+                return null;
+        }
+    }
 }
 
 public class SpawnData
@@ -102,5 +137,27 @@ public class SpawnData
         bool spawnAble = Random.Range(0f, 100f) < proba;
 
         return spawnAble;
+    }
+}
+
+public class EnemyData
+{
+    public int monsterModel;
+    public int movementPattern;
+    public float colliderRadius;
+    public float moveSpeed;
+    public int atkDamage;
+    public int maxHp;
+    public int dropExp;
+
+    public EnemyData(int monsterModel, int movementPattern, float colliderRadius, float moveSpeed, int atkDamage, int maxHp, int dropExp)
+    {
+        this.monsterModel = monsterModel;
+        this.movementPattern = movementPattern;
+        this.colliderRadius = colliderRadius;
+        this.moveSpeed = moveSpeed;
+        this.atkDamage = atkDamage;
+        this.maxHp = maxHp;
+        this.dropExp = dropExp;
     }
 }
