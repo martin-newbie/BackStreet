@@ -73,7 +73,7 @@ public class Enemy : Entity
 
         hp -= damage;
         int dir = transform.position.x > from.transform.position.x ? 1 : -1;
-        DamageTextManager.Instance.PrintText(transform.position, (int)damage, dir);
+        DamageTextManager.Instance.PrintText(transform.position, damage, dir);
 
         if (hp <= 0)
         {
