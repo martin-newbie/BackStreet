@@ -17,6 +17,7 @@ public class SweeperBuster : IMovementPattern
     {
         this.subject = subject;
         subject.retireAction += RetireExplosion;
+        explosive = ResourceManager.Instance.explosion;
     }
 
     public void Movement(Transform target, Transform transform, SpriteRenderer sprite, float moveSpeed)

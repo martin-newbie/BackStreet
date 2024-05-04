@@ -13,6 +13,7 @@ public class ResourceManager : MonoBehaviour
 
     public RuntimeAnimatorController[] commonEnemy;
     public RuntimeAnimatorController[] sweeperVariation;
+    public BusterExplosion explosion;
 
     public RuntimeAnimatorController GetEnemyAnim(int idx)
     {

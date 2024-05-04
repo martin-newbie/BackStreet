@@ -52,18 +52,17 @@ public class MonsterSpawner : MonoBehaviour
 
     EnemyData GetEnemeyData(int enemyIdx)
     {
-        EnemyData data = null;
         switch (enemyIdx)
         {
             case 0:
-                // common sweeper
-                break;
+                return new EnemyData(0, 1, 0.4f, 3f, 1, 3, 1);
+            case 1:
+                return new EnemyData(0, 0, 0.4f, 5f, 3, 2, 1);
+            case 2:
+                return new EnemyData(1, 0, 0.6f, 3f, 2, 15, 2);
             default:
-                data = null;
-                break;
+                return null;
         }
-
-        return data;
     }
 
     public IMovementPattern GetMovementPattern(int idx)
