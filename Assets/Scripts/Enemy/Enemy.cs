@@ -8,9 +8,8 @@ public class Enemy : Entity
     public Material defaultMat;
     public Material damagedMat;
 
-    public float moveSpeed = 3f;
-
-    [HideInInspector] public int damage = 1;
+    [HideInInspector] public float moveSpeed;
+    [HideInInspector] public int damage;
     [HideInInspector] public bool isInit = false;
     [HideInInspector] public bool isAlive;
 
@@ -18,20 +17,28 @@ public class Enemy : Entity
     [HideInInspector] public SpriteRenderer sprite;
     [HideInInspector] public Action<Enemy> retireAction;
     [HideInInspector] public Animator animator;
-
+    [HideInInspector] public CircleCollider2D collider;
     [HideInInspector] public EnemyData enemyData;
     IMovementPattern movementPattern;
 
     public virtual void InitEnemy(EnemyData _enemyData, Transform _target, Action<Enemy> retire)
     {
         target = _target;
+        
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        collider = GetComponent<CircleCollider2D>();
+
         isInit = true;
         isAlive = true;
         retireAction = retire;
 
         enemyData = _enemyData;
+        collider.radius = enemyData.colliderRadius;
+        moveSpeed = enemyData.moveSpeed;
+        damage = enemyData.atkDamage;
+        hp = enemyData.maxHp;
+
         movementPattern = MonsterSpawner.Instance.GetMovementPattern(enemyData.movementPattern);
         movementPattern.Init(this);
     }
