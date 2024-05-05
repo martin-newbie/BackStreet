@@ -14,7 +14,7 @@ public class Player : Entity
     bool damagedAble = true;
     float atkTimer = 2f;
     float moveSpeed = 5f;
-    float damageCoolTime = 0.5f;
+    float damageCoolTime = 0.2f;
     int damage = 1;
     int curExp;
 
