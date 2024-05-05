@@ -19,8 +19,8 @@ public class MonsterSpawner : MonoBehaviour
     void Start()
     {
         // 333... 1978
-        commonWave = new SpawnData(0, 0, 0, 80f, 20f, 5f, 80f);
-        busterWave = new SpawnData(1, 1, 15f, 50f, 30f, 5f, 70f);
+        commonWave = new SpawnData(0, 0, 0, 150f);
+        busterWave = new SpawnData(1, 1, 15f, 100f);
     }
 
     void Update()
@@ -88,20 +88,13 @@ public class SpawnData
     public float spawnTime;
     public float spawnProba; // 확률
 
-    public float increaseDelay;
-    public float increaseProba;
-    public float increaseMax;
-
     // from runtime
-    public SpawnData(int idx, int enemyIdx, float spawnTime, float spawnProba, float increaseDelay, float increaseProba, float increaseMax)
+    public SpawnData(int idx, int enemyIdx, float spawnTime, float spawnProba)
     {
         this.idx = idx;
         this.enemyIdx = enemyIdx;
         this.spawnTime = spawnTime;
         this.spawnProba = spawnProba;
-        this.increaseDelay = increaseDelay;
-        this.increaseProba = increaseProba;
-        this.increaseMax = increaseMax;
     }
 
     // from sheet
@@ -113,9 +106,6 @@ public class SpawnData
         enemyIdx = int.Parse(args[i++]);
         spawnTime = float.Parse(args[i++]);
         spawnProba = float.Parse(args[i++]);
-        increaseDelay = float.Parse(args[i++]);
-        increaseProba = float.Parse(args[i++]);
-        increaseMax = float.Parse(args[i++]);
     }
 
     public bool GetSpawnProba(float gameTime)
@@ -126,16 +116,21 @@ public class SpawnData
         }
 
         float proba = spawnProba;
-        float overTime = gameTime - spawnTime;
-        float increase = Mathf.Floor(overTime / increaseDelay);
-
-        proba += increase * increaseProba;
-        proba = Mathf.Clamp(proba, spawnProba, spawnProba + increaseMax);
         proba *= Time.deltaTime;
         bool spawnAble = Random.Range(0f, 100f) < proba;
 
         return spawnAble;
     }
+}
+
+public class BossSpawnData
+{
+    public int idx;
+    public int enemyIdx;
+    public float spawnTime;
+    public int maxHp;
+    public int atkDamage;
+    public int dropExp;
 }
 
 public class EnemyData
