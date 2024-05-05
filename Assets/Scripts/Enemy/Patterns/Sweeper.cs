@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Sweeper : IMovementPattern
 {
-    public void Init(Enemy subject)
+    Enemy subject;
+
+    public void Init(Enemy _subject)
     {
+        subject = _subject;
         subject.animator.runtimeAnimatorController = ResourceManager.Instance.GetSweeperAnim();
     }
 
@@ -22,5 +25,10 @@ public class Sweeper : IMovementPattern
 
         sprite.sortingOrder = InGameManager.Instance.GetDrawOrder((int)transform.position.y);
         sprite.flipX = dir.x > 0;
+    }
+
+    public void DamageTo(Player player)
+    {
+        player.OnDamage(subject, subject.damage);
     }
 }

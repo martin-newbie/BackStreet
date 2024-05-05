@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class CommonPattern : IMovementPattern
 {
-    public void Init(Enemy subject)
+
+    Enemy subject;
+
+    public void Init(Enemy _subject)
     {
+        subject = _subject;
         subject.animator.runtimeAnimatorController = ResourceManager.Instance.GetEnemyAnim(subject.enemyData.monsterModel);
     }
 
@@ -23,4 +27,10 @@ public class CommonPattern : IMovementPattern
         sprite.sortingOrder = InGameManager.Instance.GetDrawOrder((int)transform.position.y);
         sprite.flipX = dir.x > 0;
     }
+
+    public void DamageTo(Player player)
+    {
+        player.OnDamage(subject, subject.damage);
+    }
+
 }

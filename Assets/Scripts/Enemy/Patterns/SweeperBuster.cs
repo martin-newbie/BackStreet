@@ -55,6 +55,13 @@ public class SweeperBuster : IMovementPattern
         }
     }
 
+
+    public void DamageTo(Player player)
+    {
+        subject.retireAction?.Invoke(subject);
+    }
+
+
     void RetireExplosion(Enemy subject)
     {
         subject.isAlive = false;

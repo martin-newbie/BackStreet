@@ -17,7 +17,7 @@ public class Enemy : Entity
     [HideInInspector] public SpriteRenderer sprite;
     [HideInInspector] public Action<Enemy> retireAction;
     [HideInInspector] public Animator animator;
-    [HideInInspector] public CircleCollider2D collider;
+    [HideInInspector] public CircleCollider2D hitCollider;
     [HideInInspector] public EnemyData enemyData;
     IMovementPattern movementPattern;
 
@@ -27,14 +27,14 @@ public class Enemy : Entity
         
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        collider = GetComponent<CircleCollider2D>();
+        hitCollider = GetComponent<CircleCollider2D>();
 
         isInit = true;
         isAlive = true;
         retireAction = retire;
 
         enemyData = _enemyData;
-        collider.radius = enemyData.colliderRadius;
+        hitCollider.radius = enemyData.colliderRadius;
         moveSpeed = enemyData.moveSpeed;
         damage = enemyData.atkDamage;
         hp = enemyData.maxHp;
@@ -71,7 +71,7 @@ public class Enemy : Entity
     {
         // TODO : Replace yan to player class when it's ready
         var player = obj.GetComponent<Player>();
-        player.OnDamage(this, damage);
+        movementPattern.DamageTo(player);
     }
 
     public override void OnDamage(Entity from, int damage)
@@ -105,4 +105,5 @@ public interface IMovementPattern
 {
     void Init(Enemy subject);
     void Movement(Transform target, Transform transform, SpriteRenderer sprite, float moveSpeed);
+    void DamageTo(Player player);
 }
