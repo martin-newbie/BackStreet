@@ -18,6 +18,7 @@ public class SweeperBuster : IMovementPattern
         this.subject = subject;
         subject.retireAction += RetireExplosion;
         subject.animator.runtimeAnimatorController = ResourceManager.Instance.GetEnemyAnim(subject.enemyData.monsterModel);
+        subject.GetComponent<Rigidbody2D>().mass = 5f;
         explosive = ResourceManager.Instance.explosion;
     }
 

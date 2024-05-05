@@ -11,15 +11,16 @@ public class FieldHpBar : MonoBehaviour
     public SpriteRenderer gauge;
     public SpriteRenderer gaugeMoving;
 
+    Vector2 gaugeFull => new Vector2(gaugeWidth , gaugeHeight);
+    Vector2 gaugeEmpty => new Vector2(0, gaugeHeight);
+
     Coroutine gaugeRoutine;
 
     public void StartHpMove(float max, float prev, float cur)
     {
         gameObject.SetActive(true);
         float fill = cur / max;
-        float prevFill = prev / max;
-        gauge.size = new Vector2(gaugeWidth * fill, gaugeHeight);
-        // gaugeMoving.size = new Vector2(gaugeWidth * prevFill, gaugeHeight);
+        gauge.size = Vector2.Lerp(gaugeEmpty, gaugeFull, fill);
 
         if (gaugeRoutine != null) StopCoroutine(gaugeRoutine);
         gaugeRoutine = StartCoroutine(GaugeGetLow(fill));
@@ -28,7 +29,7 @@ public class FieldHpBar : MonoBehaviour
     IEnumerator GaugeGetLow(float targetFill)
     {
         var startSize = gaugeMoving.size;
-        var endSize = new Vector2(gaugeWidth * targetFill, gaugeHeight);
+        var endSize = Vector2.Lerp(gaugeFull, gaugeEmpty, targetFill);
 
         float dur = 0.5f;
         float timer = 0f;
