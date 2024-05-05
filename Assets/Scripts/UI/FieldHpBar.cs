@@ -29,7 +29,7 @@ public class FieldHpBar : MonoBehaviour
     IEnumerator GaugeGetLow(float targetFill)
     {
         var startSize = gaugeMoving.size;
-        var endSize = Vector2.Lerp(gaugeFull, gaugeEmpty, targetFill);
+        var endSize = Vector2.Lerp(gaugeEmpty, gaugeFull, targetFill);
 
         float dur = 0.5f;
         float timer = 0f;
