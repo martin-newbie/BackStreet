@@ -41,7 +41,6 @@ public class FieldHpBar : MonoBehaviour
 
         gaugeMoving.size = endSize;
         yield return new WaitForSeconds(0.1f);
-        gameObject.SetActive(false);
         yield break;
     }
 }

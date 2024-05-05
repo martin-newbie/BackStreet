@@ -87,7 +87,7 @@ public class Player : Entity
         int dir = transform.position.x > from.transform.position.x ? 1 : -1;
         DamageTextManager.Instance.PrintText(transform.position, damage, dir);
 
-        if(hp <= 0)
+        if (hp <= 0)
         {
 
         }
@@ -96,10 +96,19 @@ public class Player : Entity
         StartCoroutine(DamageCool());
     }
 
+    public void GetHP(int value)
+    {
+        hp += value;
+        if (hp >= 100/*maxHp*/)
+        {
+            hpBar.gameObject.SetActive(false);
+        }
+    }
+
     public void IncreaseExp(int exp)
     {
         curExp += exp;
-        if(curExp >= GetMaxExp())
+        if (curExp >= GetMaxExp())
         {
             curExp -= GetMaxExp();
             // exp level up
