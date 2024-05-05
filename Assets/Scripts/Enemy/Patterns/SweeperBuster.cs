@@ -58,6 +58,7 @@ public class SweeperBuster : IMovementPattern
 
     public void DamageTo(Player player)
     {
+        player.OnDamage(subject, subject.damage);
         subject.retireAction?.Invoke(subject);
     }
 
@@ -65,7 +66,6 @@ public class SweeperBuster : IMovementPattern
     void RetireExplosion(Enemy subject)
     {
         subject.isAlive = false;
-        var expl = Object.Instantiate(explosive, subject.transform.position, Quaternion.identity);
-        expl.SetExplosion(subject, subject.damage);
+        Object.Instantiate(explosive, subject.transform.position, Quaternion.identity);
     }
 }
