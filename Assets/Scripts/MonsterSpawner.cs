@@ -13,25 +13,29 @@ public class MonsterSpawner : MonoBehaviour
     public Enemy[] enemyPrefabs;
 
     List<Enemy> curEnemy = new List<Enemy>();
-    SpawnData commonWave;
-    SpawnData busterWave;
+    List<SpawnData> waveDatas = new List<SpawnData>();
 
     void Start()
     {
         // 333... 1978
-        commonWave = new SpawnData(0, 0, 0, 150f);
-        busterWave = new SpawnData(1, 1, 15f, 100f);
+        waveDatas.Add(new SpawnData(0, 0, 0, 120f, 150f, 0));
+        waveDatas.Add(new SpawnData(1, 1, 15f, 120f, 100f, 0));
+        waveDatas.Add(new SpawnData(2, 2, 120f, 120f, 100f, 1));
     }
 
     void Update()
     {
-        SpawnLogic(InGameManager.Instance.playTime, commonWave);
-        SpawnLogic(InGameManager.Instance.playTime, busterWave);
+        for (int i = 0; i < waveDatas.Count; i++)
+        {
+            SpawnLogic(InGameManager.Instance.playTime, waveDatas[i]);
+        }
     }
 
     void SpawnLogic(float gameTime, SpawnData spawnData)
     {
-        if (spawnData.GetSpawnProba(gameTime))
+        bool bossWaveAble = spawnData.isBoss && spawnData.spawnTime <= gameTime;
+
+        if (spawnData.GetSpawnProba(gameTime) || bossWaveAble)
         {
             var enemyData = GetEnemeyData(spawnData.enemyIdx);
             var obj = enemyPrefabs[enemyData.movementPattern];
@@ -39,6 +43,12 @@ public class MonsterSpawner : MonoBehaviour
             var enemy = Instantiate(obj, spawnPos, Quaternion.identity);
             enemy.InitEnemy(enemyData, InGameManager.Instance.curPlayer.transform, CommonEnemyRetireAction);
             curEnemy.Add(enemy);
+
+            if (spawnData.isBoss)
+            {
+                waveDatas.Remove(spawnData);
+                enemy.transform.localScale = new Vector3(1.5f, 1.5f, 1f);
+            }
         }
     }
 
@@ -59,7 +69,7 @@ public class MonsterSpawner : MonoBehaviour
             case 1:
                 return new EnemyData(0, 2, 0.4f, 5f, 3, 2, 1);
             case 2:
-                return new EnemyData(1, 0, 0.6f, 3f, 2, 15, 2);
+                return new EnemyData(1, 0, 0.6f, 3f, 2, 150, 2);
             default:
                 return null;
         }
@@ -70,17 +80,21 @@ public class SpawnData
 {
     public int idx;
     public int enemyIdx;
-    
+
     public float spawnTime;
+    public float endTime;
     public float spawnProba; // 확률
+    public bool isBoss;
 
     // from runtime
-    public SpawnData(int idx, int enemyIdx, float spawnTime, float spawnProba)
+    public SpawnData(int idx, int enemyIdx, float spawnTime, float endTime, float spawnProba, int isBoss)
     {
         this.idx = idx;
         this.enemyIdx = enemyIdx;
         this.spawnTime = spawnTime;
+        this.endTime = endTime;
         this.spawnProba = spawnProba;
+        this.isBoss = isBoss == 1;
     }
 
     // from sheet
@@ -96,7 +110,7 @@ public class SpawnData
 
     public bool GetSpawnProba(float gameTime)
     {
-        if(spawnTime > gameTime)
+        if (spawnTime > gameTime)
         {
             return false;
         }
@@ -107,16 +121,6 @@ public class SpawnData
 
         return spawnAble;
     }
-}
-
-public class BossSpawnData
-{
-    public int idx;
-    public int enemyIdx;
-    public float spawnTime;
-    public int maxHp;
-    public int atkDamage;
-    public int dropExp;
 }
 
 public class EnemyData
