@@ -10,7 +10,7 @@ public class MonsterSpawner : MonoBehaviour
         Instance = this;
     }
 
-    public Enemy enemyPrefab;
+    public Enemy[] enemyPrefabs;
 
     List<Enemy> curEnemy = new List<Enemy>();
     SpawnData commonWave;
@@ -33,10 +33,11 @@ public class MonsterSpawner : MonoBehaviour
     {
         if (spawnData.GetSpawnProba(gameTime))
         {
-            var obj = enemyPrefab;
+            var enemyData = GetEnemeyData(spawnData.enemyIdx);
+            var obj = enemyPrefabs[enemyData.movementPattern];
             var spawnPos = InGameManager.Instance.curPlayer.transform.position + (Vector3)(Random.insideUnitCircle.normalized * 15f);
             var enemy = Instantiate(obj, spawnPos, Quaternion.identity);
-            enemy.InitEnemy(GetEnemeyData(spawnData.enemyIdx), InGameManager.Instance.curPlayer.transform, CommonEnemyRetireAction);
+            enemy.InitEnemy(enemyData, InGameManager.Instance.curPlayer.transform, CommonEnemyRetireAction);
             curEnemy.Add(enemy);
         }
     }

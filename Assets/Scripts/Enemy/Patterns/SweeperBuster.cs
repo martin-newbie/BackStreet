@@ -53,6 +53,12 @@ public class SweeperBuster : Enemy
         }
     }
 
+    protected override void ContactStayWithPlayer(GameObject obj)
+    {
+        retireAction?.Invoke(this);
+        obj.GetComponent<Player>().OnDamage(this, damage);
+    }
+
     public override void OnDamage(Entity from, int damage)
     {
         base.OnDamage(from, damage);
