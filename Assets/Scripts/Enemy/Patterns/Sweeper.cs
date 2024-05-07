@@ -1,34 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class Sweeper : IMovementPattern
+public class Sweeper : Enemy
 {
-    Enemy subject;
+    public RuntimeAnimatorController[] animVariation;
 
-    public void Init(Enemy _subject)
+    public override void InitEnemy(EnemyData _enemyData, Transform _target, Action<Enemy> retire)
     {
-        subject = _subject;
-        subject.animator.runtimeAnimatorController = ResourceManager.Instance.GetSweeperAnim();
-    }
-
-    public void Movement(Transform target, Transform transform, SpriteRenderer sprite, float moveSpeed)
-    {
-        var dist = Vector3.Distance(target.position, transform.position);
-        if (dist < 0.5f)
-        {
-            return;
-        }
-
-        var dir = (target.position - transform.position).normalized;
-        transform.Translate(dir * Time.deltaTime * moveSpeed);
-
-        sprite.sortingOrder = InGameManager.Instance.GetDrawOrder((int)transform.position.y);
-        sprite.flipX = dir.x > 0;
-    }
-
-    public void DamageTo(Player player)
-    {
-        player.OnDamage(subject, subject.damage);
+        base.InitEnemy(_enemyData, _target, retire);
+        animator.runtimeAnimatorController = animVariation[Random.Range(0, animVariation.Length)];
     }
 }

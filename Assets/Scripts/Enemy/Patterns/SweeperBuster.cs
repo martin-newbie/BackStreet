@@ -1,28 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SweeperBuster : IMovementPattern
+public class SweeperBuster : Enemy
 {
-    Vector3 moveDir;
-    BusterExplosion explosive;
-    int moveState;
+    public BusterExplosion explosion;
+
+    int moveState = 0;
+    Vector2 moveDir;
 
     float rangeInside = 8f;
     float rangeOutside = 11f;
 
-    Enemy subject;
-
-    public void Init(Enemy subject)
+    public override void InitEnemy(EnemyData _enemyData, Transform _target, Action<Enemy> retire)
     {
-        this.subject = subject;
-        subject.retireAction += RetireExplosion;
-        subject.animator.runtimeAnimatorController = ResourceManager.Instance.GetEnemyAnim(subject.enemyData.monsterModel);
-        subject.GetComponent<Rigidbody2D>().mass = 5f;
-        explosive = ResourceManager.Instance.explosion;
+        base.InitEnemy(_enemyData, _target, retire);
+        retireAction += RetireExplosion;
     }
 
-    public void Movement(Transform target, Transform transform, SpriteRenderer sprite, float moveSpeed)
+    public void Movement()
     {
         switch (moveState)
         {
@@ -40,9 +37,9 @@ public class SweeperBuster : IMovementPattern
 
     void BeforeInside()
     {
-        moveDir = (subject.target.position - subject.transform.position).normalized;
+        moveDir = (target.position - transform.position).normalized;
 
-        if (Vector3.Distance(subject.transform.position, subject.target.position) < rangeInside)
+        if (Vector3.Distance(transform.position, target.position) < rangeInside)
         {
             moveState = 1;
         }
@@ -50,23 +47,21 @@ public class SweeperBuster : IMovementPattern
 
     void InsideRange()
     {
-        if (Vector3.Distance(subject.transform.position, subject.target.position) > rangeOutside)
+        if (Vector3.Distance(transform.position, target.position) > rangeOutside)
         {
             moveState = 0;
         }
     }
 
-
-    public void DamageTo(Player player)
+    public override void OnDamage(Entity from, int damage)
     {
-        player.OnDamage(subject, subject.damage);
-        subject.retireAction?.Invoke(subject);
+        base.OnDamage(from, damage);
+        retireAction?.Invoke(this);
     }
-
 
     void RetireExplosion(Enemy subject)
     {
-        subject.isAlive = false;
-        Object.Instantiate(explosive, subject.transform.position, Quaternion.identity);
+        isAlive = false;
+        Instantiate(explosion, subject.transform.position, Quaternion.identity);
     }
 }

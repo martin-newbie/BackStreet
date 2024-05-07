@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 7923429801505816271}
   - component: {fileID: 6602774014119194298}
   - component: {fileID: -1139564072644147390}
-  - component: {fileID: 7810349120938212192}
+  - component: {fileID: 2226882697431889821}
   m_Layer: 7
-  m_Name: Enemy
+  m_Name: Sweeper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -259663052139185237, guid: a8001950fea83594aaf0d8166a6d3c32, type: 3}
+  m_Sprite: {fileID: 9201635942254895190, guid: eef0618deb1730748841fad4edc1623b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -142,7 +142,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7810349120938212192
+--- !u!114 &2226882697431889821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,9 +151,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7923429801505816274}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3edeca4d13526ee448fdd82f85ac1a2a, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c9feddb4ae8cdf47ba312927f42e0a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 2
+  hp: 0
   defaultMat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   damagedMat: {fileID: 2100000, guid: 61a8198cfc657c644bbe0867e64cdd75, type: 2}
+  animVariation:
+  - {fileID: 9100000, guid: 5b7d0c2ad5f3f3046a23909e6b599278, type: 2}
+  - {fileID: 9100000, guid: 3196bbecc61c87b42919f2bb81e3bc0b, type: 2}
+  - {fileID: 9100000, guid: 17866ee220f765440a5fcf269e7821fd, type: 2}

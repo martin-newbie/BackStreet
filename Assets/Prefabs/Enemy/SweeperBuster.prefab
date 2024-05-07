@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 7923429801505816271}
   - component: {fileID: 6602774014119194298}
   - component: {fileID: -1139564072644147390}
-  - component: {fileID: 7810349120938212192}
+  - component: {fileID: -5335496559591851079}
   m_Layer: 7
-  m_Name: Enemy
+  m_Name: SweeperBuster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -259663052139185237, guid: a8001950fea83594aaf0d8166a6d3c32, type: 3}
+  m_Sprite: {fileID: -1510747378643411724, guid: d20b151a7cb1a484093da03acbadf7dc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -112,7 +112,7 @@ Animator:
   m_GameObject: {fileID: 7923429801505816274}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5b7d0c2ad5f3f3046a23909e6b599278, type: 2}
+  m_Controller: {fileID: 9100000, guid: cd5e769b4a1ca2d4494e0ea5c17904e3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -142,7 +142,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7810349120938212192
+--- !u!114 &-5335496559591851079
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,9 +151,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7923429801505816274}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3edeca4d13526ee448fdd82f85ac1a2a, type: 3}
+  m_Script: {fileID: 11500000, guid: 92e48235e22ab72438374bca09189ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 2
+  hp: 0
   defaultMat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   damagedMat: {fileID: 2100000, guid: 61a8198cfc657c644bbe0867e64cdd75, type: 2}
+  explosion: {fileID: 2264012651421232060, guid: b95b9038e7dd8b9489323212fc9ea932, type: 3}

@@ -63,21 +63,6 @@ public class MonsterSpawner : MonoBehaviour
                 return null;
         }
     }
-
-    public IMovementPattern GetMovementPattern(int idx)
-    {
-        switch (idx)
-        {
-            case 0:
-                return new CommonPattern();
-            case 1:
-                return new Sweeper();
-            case 2:
-                return new SweeperBuster();
-            default:
-                return null;
-        }
-    }
 }
 
 public class SpawnData

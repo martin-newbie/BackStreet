@@ -8,18 +8,16 @@ public class Enemy : Entity
     public Material defaultMat;
     public Material damagedMat;
 
-    [HideInInspector] public float moveSpeed;
-    [HideInInspector] public int damage;
-    [HideInInspector] public bool isInit = false;
-    [HideInInspector] public bool isAlive;
-
-    [HideInInspector] public Transform target;
-    [HideInInspector] public SpriteRenderer sprite;
-    [HideInInspector] public Action<Enemy> retireAction;
-    [HideInInspector] public Animator animator;
-    [HideInInspector] public CircleCollider2D hitCollider;
-    [HideInInspector] public EnemyData enemyData;
-    IMovementPattern movementPattern;
+    protected float moveSpeed;
+    protected int damage;
+    protected bool isInit = false;
+    protected bool isAlive;
+    protected Transform target;
+    protected SpriteRenderer sprite;
+    protected Action<Enemy> retireAction;
+    protected Animator animator;
+    protected CircleCollider2D hitCollider;
+    protected EnemyData enemyData;
 
     public virtual void InitEnemy(EnemyData _enemyData, Transform _target, Action<Enemy> retire)
     {
@@ -39,8 +37,7 @@ public class Enemy : Entity
         damage = enemyData.atkDamage;
         hp = enemyData.maxHp;
 
-        movementPattern = MonsterSpawner.Instance.GetMovementPattern(enemyData.movementPattern);
-        movementPattern.Init(this);
+        animator.runtimeAnimatorController = ResourceManager.Instance.GetEnemyAnim(enemyData.monsterModel);
     }
 
     private void Update()
@@ -53,8 +50,17 @@ public class Enemy : Entity
 
     protected virtual void MoveLogic()
     {
-        movementPattern?.Movement(target, transform, sprite, moveSpeed);
-        return;
+        var dist = Vector3.Distance(target.position, transform.position);
+        if (dist < 0.5f)
+        {
+            return;
+        }
+
+        var dir = (target.position - transform.position).normalized;
+        transform.Translate(dir * Time.deltaTime * moveSpeed);
+
+        sprite.sortingOrder = InGameManager.Instance.GetDrawOrder((int)transform.position.y);
+        sprite.flipX = dir.x > 0;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -71,7 +77,7 @@ public class Enemy : Entity
     {
         // TODO : Replace yan to player class when it's ready
         var player = obj.GetComponent<Player>();
-        movementPattern.DamageTo(player);
+        player.OnDamage(this, damage);
     }
 
     public override void OnDamage(Entity from, int damage)
@@ -99,11 +105,4 @@ public class Enemy : Entity
         yield return new WaitForSeconds(dur);
         sprite.material = defaultMat;
     }
-}
-
-public interface IMovementPattern
-{
-    void Init(Enemy subject);
-    void Movement(Transform target, Transform transform, SpriteRenderer sprite, float moveSpeed);
-    void DamageTo(Player player);
 }
