@@ -2,28 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StaticWaveData", menuName = "SheetData/StaticWaveData", order = int.MinValue)]
-public class StaticWaveData : SheetDataBase
+[CreateAssetMenu(fileName = "StaticWaveSheet", menuName = "SheetData/StaticWaveSheet", order = int.MinValue)]
+public class StaticWaveSheet : SheetDataBase
 {
     protected override string gid => "1779530673";
 
     protected override string range => "C3:H15";
 
-    public List<SpawnData> datas;
+    public List<WaveData> datas;
 
     protected override void SetData(string data)
     {
-        datas = new List<SpawnData>();
+        datas = new List<WaveData>();
         var splitData = data.Split('\n');
         foreach (var item in splitData)
         {
-            datas.Add(new SpawnData(item.Split('\t')));
+            datas.Add(new WaveData(item.Split('\t')));
         }
     }
 }
 
 [System.Serializable]
-public class SpawnData
+public class WaveData
 {
     public int idx;
     public int enemyIdx;
@@ -34,7 +34,7 @@ public class SpawnData
     public bool isBoss;
 
     // from runtime
-    public SpawnData(int idx, int enemyIdx, float spawnTime, float endTime, float spawnProba, int isBoss)
+    public WaveData(int idx, int enemyIdx, float spawnTime, float endTime, float spawnProba, int isBoss)
     {
         this.idx = idx;
         this.enemyIdx = enemyIdx;
@@ -45,13 +45,14 @@ public class SpawnData
     }
 
     // from sheet
-    public SpawnData(string[] args)
+    public WaveData(string[] args)
     {
         int i = 0;
 
         idx = int.Parse(args[i++]);
         enemyIdx = int.Parse(args[i++]);
         spawnTime = float.Parse(args[i++]);
+        endTime = float.Parse(args[i++]);
         spawnProba = float.Parse(args[i++]);
         isBoss = int.Parse(args[i++]) == 1;
     }

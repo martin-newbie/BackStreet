@@ -22,7 +22,7 @@ public class Enemy : Entity
     public virtual void InitEnemy(EnemyData _enemyData, Transform _target, Action<Enemy> retire)
     {
         target = _target;
-        
+
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         hitCollider = GetComponent<CircleCollider2D>();
@@ -37,7 +37,8 @@ public class Enemy : Entity
         damage = enemyData.atkDamage;
         hp = enemyData.maxHp;
 
-        animator.runtimeAnimatorController = ResourceManager.Instance.GetEnemyAnim(enemyData.monsterModel);
+        if (enemyData.animeIndex >= 0)
+            animator.runtimeAnimatorController = ResourceManager.Instance.GetEnemyAnim(enemyData.animeIndex);
     }
 
     private void Update()

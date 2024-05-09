@@ -26,8 +26,8 @@ public class StaticEnemySheet : SheetDataBase
 [System.Serializable]
 public class EnemyData
 {
-    public int monsterModel;
-    public int movementPattern;
+    public int prefabIndex;
+    public int animeIndex;
     public float colliderRadius;
     public float moveSpeed;
     public int atkDamage;
@@ -36,8 +36,8 @@ public class EnemyData
 
     public EnemyData(int monsterModel, int movementPattern, float colliderRadius, float moveSpeed, int atkDamage, int maxHp, int dropExp)
     {
-        this.monsterModel = monsterModel;
-        this.movementPattern = movementPattern;
+        this.prefabIndex = monsterModel;
+        this.animeIndex = movementPattern;
         this.colliderRadius = colliderRadius;
         this.moveSpeed = moveSpeed;
         this.atkDamage = atkDamage;
@@ -49,8 +49,8 @@ public class EnemyData
     {
         int idx = 0;
 
-        monsterModel = int.Parse(args[idx++]);
-        movementPattern = int.Parse(args[idx++]);
+        prefabIndex = int.Parse(args[idx++]);
+        animeIndex = int.Parse(args[idx++]);
         colliderRadius = float.Parse(args[idx++]);
         moveSpeed = float.Parse(args[idx++]);
         atkDamage = int.Parse(args[idx++]);
