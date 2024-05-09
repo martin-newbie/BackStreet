@@ -31,8 +31,8 @@ public class SweeperBuster : Enemy
                 break;
         }
 
-        transform.Translate(moveDir * Time.deltaTime * moveSpeed);
-        sprite.flipX = moveDir.x > 0;
+        transform.position += (Vector3)moveDir * Time.deltaTime * moveSpeed;
+        SetDir(moveDir.x);
     }
 
     void BeforeInside()

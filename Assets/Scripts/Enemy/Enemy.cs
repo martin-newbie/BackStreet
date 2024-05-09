@@ -58,10 +58,10 @@ public class Enemy : Entity
         }
 
         var dir = (target.position - transform.position).normalized;
-        transform.Translate(dir * Time.deltaTime * moveSpeed);
+        transform.position += dir * Time.deltaTime * moveSpeed;
 
         sprite.sortingOrder = InGameManager.Instance.GetDrawOrder((int)transform.position.y);
-        sprite.flipX = dir.x > 0;
+        SetDir(dir.x);
     }
 
     private void OnCollisionStay2D(Collision2D collision)
