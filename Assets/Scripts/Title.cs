@@ -96,7 +96,7 @@ public class Title : MonoBehaviour
 
     public void GameStart()
     {
-        SceneManager.LoadScene("Main");
+        SceneLoadManager.LoadScene("Main");
     }
     public void GameQuit()
     {
