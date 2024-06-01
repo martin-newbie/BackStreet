@@ -32,6 +32,8 @@ public class Player : Entity
 
     void Update()
     {
+        if (isAlive) return;
+
         if (atkAble)
         {
             AttackLogic();
@@ -81,6 +83,7 @@ public class Player : Entity
     public override void OnDamage(Entity from, int damage)
     {
         if (!damagedAble) return;
+        if (!isAlive) return;
 
         hpBar.StartHpMove(100, hp, hp - damage);
         hp -= damage;
