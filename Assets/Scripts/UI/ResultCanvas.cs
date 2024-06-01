@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ResultCanvas : MonoBehaviour
@@ -23,7 +24,7 @@ public class ResultCanvas : MonoBehaviour
 
     public void OnBackToTitle()
     {
-
+        SceneManager.LoadScene("Title");
     }
 
     public void OnReplay()
