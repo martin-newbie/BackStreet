@@ -91,13 +91,19 @@ public class Enemy : Entity
 
         if (hp <= 0)
         {
-            isAlive = false;
-            retireAction?.Invoke(this);
+            OnDeath();
         }
         else
         {
             StartCoroutine(DamagedMatChange(0.1f));
         }
+    }
+
+    protected virtual void OnDeath()
+    {
+        isAlive = false;
+        retireAction?.Invoke(this);
+        InGameManager.Instance.killCount++;
     }
 
     IEnumerator DamagedMatChange(float dur)
