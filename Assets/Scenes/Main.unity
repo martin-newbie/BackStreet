@@ -1175,6 +1175,7 @@ MonoBehaviour:
   expGauge: {fileID: 112641797}
   hpGauge: {fileID: 938247102}
   playTimeText: {fileID: 43357717}
+  resultCanvas: {fileID: 1893459000}
   playTime: 0
   killCount: 0
 --- !u!1 &694994601

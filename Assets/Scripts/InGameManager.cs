@@ -25,6 +25,7 @@ public class InGameManager : MonoBehaviour
     public ExpGaugeBox expGauge;
     public HpGaugeBox hpGauge;
     public Text playTimeText;
+    public ResultCanvas resultCanvas;
 
     [HideInInspector] public float playTime;
     [HideInInspector] public int killCount;
@@ -84,5 +85,6 @@ public class InGameManager : MonoBehaviour
     public void GameOver()
     {
         spawner.StopSpawn();
+        resultCanvas.OpenPopup();
     }
 }
