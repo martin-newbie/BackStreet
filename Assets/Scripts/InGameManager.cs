@@ -8,7 +8,6 @@ using Random = UnityEngine.Random;
 
 public class InGameManager : MonoBehaviour
 {
-
     public static InGameManager Instance;
     private void Awake()
     {
