@@ -1172,7 +1172,7 @@ MonoBehaviour:
   curPlayer: {fileID: 522823374}
   crossHair: {fileID: 1752233795}
   expItemPrefab: {fileID: 8541732552583229218, guid: b82adef1c95b86d4790271f022745cd6, type: 3}
-  spawner: {fileID: 0}
+  spawner: {fileID: 1202627239}
   expGauge: {fileID: 112641797}
   hpGauge: {fileID: 938247102}
   playTimeText: {fileID: 43357717}
