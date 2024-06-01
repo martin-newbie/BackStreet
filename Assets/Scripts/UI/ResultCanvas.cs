@@ -19,7 +19,7 @@ public class ResultCanvas : MonoBehaviour
 
         killCountTxt.text = killCnt.ToString("N0");
         TimeSpan time = TimeSpan.FromSeconds(playSec);
-        playTimeTxt.text = time.ToString("hh:mm:ss");
+        playTimeTxt.text = time.ToString(@"hh\:mm\:ss");
     }
 
     public void OnBackToTitle()

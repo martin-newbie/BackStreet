@@ -32,7 +32,7 @@ public class Player : Entity
 
     void Update()
     {
-        if (isAlive) return;
+        if (!isAlive) return;
 
         if (atkAble)
         {
