@@ -89,7 +89,8 @@ public class Player : Entity
 
         if (hp <= 0)
         {
-
+            // gameover
+            InGameManager.Instance.GameOver();
         }
 
         damagedAble = false;

@@ -15,8 +15,11 @@ public class MonsterSpawner : MonoBehaviour
     List<Enemy> curEnemy = new List<Enemy>();
     List<WaveData> waveDatas = new List<WaveData>();
 
-    void Start()
+    bool gameActive = false;
+
+    public void StartWave()
     {
+        gameActive = true;
         // 333... 1978
         for (int i = 0; i < 13; i++)
         {
@@ -26,6 +29,8 @@ public class MonsterSpawner : MonoBehaviour
 
     void Update()
     {
+        if (!gameActive) return;
+
         for (int i = 0; i < waveDatas.Count; i++)
         {
             SpawnLogic(InGameManager.Instance.playTime, waveDatas[i]);
@@ -59,5 +64,10 @@ public class MonsterSpawner : MonoBehaviour
         InGameManager.Instance.SpawnExpItem(pos);
         curEnemy.Remove(subject);
         Destroy(subject.gameObject);
+    }
+
+    public void StopSpawn()
+    {
+        gameActive = false;
     }
 }

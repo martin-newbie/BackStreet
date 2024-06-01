@@ -19,12 +19,15 @@ public class InGameManager : MonoBehaviour
     public Transform crossHair;
     public ExpItem expItemPrefab;
 
+    public MonsterSpawner spawner;
+
     [Header("Interface")]
     public ExpGaugeBox expGauge;
     public HpGaugeBox hpGauge;
     public Text playTimeText;
 
     [HideInInspector] public float playTime;
+    [HideInInspector] public int killCount;
     TimeSpan prevTime;
 
     void Start()
@@ -76,5 +79,10 @@ public class InGameManager : MonoBehaviour
     public int GetDrawOrder(int yPos)
     {
         return (int)curPlayer.transform.position.y - yPos;
+    }
+
+    public void GameOver()
+    {
+        spawner.StopSpawn();
     }
 }
