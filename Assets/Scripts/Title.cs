@@ -41,6 +41,8 @@ public class Title : MonoBehaviour
 
     public IEnumerator DataLoading()
     {
+        Loading.SetActive(true);
+        Buttons.SetActive(false);
         int idx = 0;
         while (true)
         {
