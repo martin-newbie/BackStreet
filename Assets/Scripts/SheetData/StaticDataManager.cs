@@ -12,7 +12,10 @@ public class StaticDataManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
 
+    public IEnumerator InitDatas()
+    {
         var datas = new SheetDataBase[]
         {
             waveData,
@@ -21,7 +24,7 @@ public class StaticDataManager : MonoBehaviour
 
         foreach (var item in datas)
         {
-            item.LoadData();
+            yield return StartCoroutine(item.LoadDataCor());
         }
     }
 
