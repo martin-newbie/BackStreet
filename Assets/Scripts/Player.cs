@@ -17,6 +17,7 @@ public class Player : Entity
     float damageCoolTime = 0.2f;
     int damage = 1;
     int curExp;
+    bool isAlive;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class Player : Entity
         animator = GetComponent<Animator>();
 
         hp = 100;
+        isAlive = true;
         InGameManager.Instance.expGauge.SetGauge(0, GetMaxExp());
         InGameManager.Instance.hpGauge.SetGauge(hp, 100);
     }
@@ -87,9 +89,10 @@ public class Player : Entity
         int dir = transform.position.x > from.transform.position.x ? 1 : -1;
         DamageTextManager.Instance.PrintText(transform.position, damage, dir);
 
-        if (hp <= 0)
+        if (hp <= 0 && isAlive)
         {
             // gameover
+            isAlive = false;
             InGameManager.Instance.GameOver();
         }
 

@@ -76,7 +76,7 @@ public class Title : MonoBehaviour
         var targetButton = buttonsRect[clampedFocusIdx];
         buttonFocus.anchoredPosition = Vector2.Lerp(buttonFocus.anchoredPosition, targetButton.anchoredPosition, Time.deltaTime * 25f);
 
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Insert))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             switch (clampedFocusIdx)
             {

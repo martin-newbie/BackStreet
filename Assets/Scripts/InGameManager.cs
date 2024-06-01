@@ -33,6 +33,7 @@ public class InGameManager : MonoBehaviour
 
     void Start()
     {
+        spawner.StartWave();
     }
 
     void Update()
