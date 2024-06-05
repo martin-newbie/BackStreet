@@ -36,9 +36,6 @@ public class Enemy : Entity
         moveSpeed = enemyData.moveSpeed;
         damage = enemyData.atkDamage;
         hp = enemyData.maxHp;
-
-        if (enemyData.animeIndex >= 0)
-            animator.runtimeAnimatorController = ResourceManager.Instance.GetEnemyAnim(enemyData.animeIndex);
     }
 
     private void Update()

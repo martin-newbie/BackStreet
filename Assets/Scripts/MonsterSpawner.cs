@@ -39,9 +39,7 @@ public class MonsterSpawner : MonoBehaviour
 
     void SpawnLogic(float gameTime, WaveData spawnData)
     {
-        bool bossWaveAble = spawnData.isBoss && spawnData.spawnTime <= gameTime;
-
-        if (spawnData.GetSpawnProba(gameTime) || bossWaveAble)
+        if (spawnData.GetSpawnProba(gameTime))
         {
             var enemyData = StaticDataManager.GetEnemyData(spawnData.enemyIdx);
             var obj = enemyPrefabs[enemyData.prefabIndex];
@@ -49,12 +47,6 @@ public class MonsterSpawner : MonoBehaviour
             var enemy = Instantiate(obj, spawnPos, Quaternion.identity);
             enemy.InitEnemy(enemyData, InGameManager.Instance.curPlayer.transform, CommonEnemyRetireAction);
             curEnemy.Add(enemy);
-
-            if (spawnData.isBoss)
-            {
-                waveDatas.Remove(spawnData);
-                enemy.transform.localScale = new Vector3(1.5f, 1.5f, 1f);
-            }
         }
     }
 

@@ -27,17 +27,15 @@ public class StaticEnemySheet : SheetDataBase
 public class EnemyData
 {
     public int prefabIndex;
-    public int animeIndex;
     public float colliderRadius;
     public float moveSpeed;
     public int atkDamage;
     public int maxHp;
     public int dropExp;
 
-    public EnemyData(int monsterModel, int movementPattern, float colliderRadius, float moveSpeed, int atkDamage, int maxHp, int dropExp)
+    public EnemyData(int monsterModel, float colliderRadius, float moveSpeed, int atkDamage, int maxHp, int dropExp)
     {
         this.prefabIndex = monsterModel;
-        this.animeIndex = movementPattern;
         this.colliderRadius = colliderRadius;
         this.moveSpeed = moveSpeed;
         this.atkDamage = atkDamage;
@@ -50,7 +48,6 @@ public class EnemyData
         int idx = 0;
 
         prefabIndex = int.Parse(args[idx++]);
-        animeIndex = int.Parse(args[idx++]);
         colliderRadius = float.Parse(args[idx++]);
         moveSpeed = float.Parse(args[idx++]);
         atkDamage = int.Parse(args[idx++]);

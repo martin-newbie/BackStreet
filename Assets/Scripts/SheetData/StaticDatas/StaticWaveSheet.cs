@@ -31,17 +31,15 @@ public class WaveData
     public float spawnTime;
     public float endTime;
     public float spawnProba; // 확률
-    public bool isBoss;
 
     // from runtime
-    public WaveData(int idx, int enemyIdx, float spawnTime, float endTime, float spawnProba, int isBoss)
+    public WaveData(int idx, int enemyIdx, float spawnTime, float endTime, float spawnProba)
     {
         this.idx = idx;
         this.enemyIdx = enemyIdx;
         this.spawnTime = spawnTime;
         this.endTime = endTime;
         this.spawnProba = spawnProba;
-        this.isBoss = isBoss == 1;
     }
 
     // from sheet
@@ -54,7 +52,6 @@ public class WaveData
         spawnTime = float.Parse(args[i++]);
         endTime = float.Parse(args[i++]);
         spawnProba = float.Parse(args[i++]);
-        isBoss = int.Parse(args[i++]) == 1;
     }
 
     public bool GetSpawnProba(float gameTime)
