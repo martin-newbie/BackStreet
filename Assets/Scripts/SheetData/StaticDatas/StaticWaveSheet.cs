@@ -56,10 +56,8 @@ public class WaveData
 
     public bool GetSpawnProba(float gameTime)
     {
-        if (spawnTime > gameTime || gameTime > endTime)
-        {
-            return false;
-        }
+        if (spawnTime > gameTime) return false;
+        if (endTime < gameTime && endTime != 0) return false;
 
         float proba = spawnProba;
         proba *= Time.deltaTime;
