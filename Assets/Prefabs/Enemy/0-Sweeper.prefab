@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: -1139564072644147390}
   - component: {fileID: 2226882697431889821}
   m_Layer: 7
-  m_Name: Sweeper
+  m_Name: 0-Sweeper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

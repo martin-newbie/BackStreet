@@ -42,9 +42,8 @@ public class MonsterSpawner : MonoBehaviour
         if (spawnData.GetSpawnProba(gameTime))
         {
             var enemyData = StaticDataManager.GetEnemyData(spawnData.enemyIdx);
-            var obj = enemyPrefabs[enemyData.prefabIndex];
             var spawnPos = InGameManager.Instance.curPlayer.transform.position + (Vector3)(Random.insideUnitCircle.normalized * 15f);
-            var enemy = Instantiate(obj, spawnPos, Quaternion.identity);
+            var enemy = Instantiate(enemyPrefabs[enemyData.prefabIndex], spawnPos, Quaternion.identity);
             enemy.InitEnemy(enemyData, InGameManager.Instance.curPlayer.transform, CommonEnemyRetireAction);
             curEnemy.Add(enemy);
         }
