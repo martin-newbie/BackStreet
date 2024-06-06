@@ -7,7 +7,7 @@ public class StaticEnemySheet : SheetDataBase
 {
     protected override string gid => "142739972";
 
-    protected override string range => "C3:I13";
+    protected override string range => "C3:G42";
 
     public List<EnemyData> datas;
 

@@ -7,7 +7,7 @@ public class StaticWaveSheet : SheetDataBase
 {
     protected override string gid => "1779530673";
 
-    protected override string range => "C3:H15";
+    protected override string range => "C3:G42";
 
     public List<WaveData> datas;
 
