@@ -34,6 +34,7 @@ public class Enemy : Entity
         enemyData = _enemyData;
         moveSpeed = enemyData.moveSpeed;
         damage = enemyData.atkDamage;
+        maxHp = enemyData.maxHp;
         hp = enemyData.maxHp;
     }
 
