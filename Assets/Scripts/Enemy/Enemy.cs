@@ -32,7 +32,6 @@ public class Enemy : Entity
         retireAction = retire;
 
         enemyData = _enemyData;
-        hitCollider.radius = enemyData.colliderRadius;
         moveSpeed = enemyData.moveSpeed;
         damage = enemyData.atkDamage;
         hp = enemyData.maxHp;
