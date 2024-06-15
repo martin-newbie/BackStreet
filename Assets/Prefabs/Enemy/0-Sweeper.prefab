@@ -310,8 +310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c9feddb4ae8cdf47ba312927f42e0a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 0
-  defaultMat: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   damagedMat: {fileID: 2100000, guid: 61a8198cfc657c644bbe0867e64cdd75, type: 2}
   animVariation:
   - {fileID: 9100000, guid: 5b7d0c2ad5f3f3046a23909e6b599278, type: 2}
