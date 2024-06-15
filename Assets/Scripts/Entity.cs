@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-    public int maxHp;
-    public int hp;
+    protected int maxHp;
+    protected int hp;
 
     public abstract void OnDamage(Entity from, int damage);
 

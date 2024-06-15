@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
-    public Material defaultMat;
+    Material defaultMat;
     public Material damagedMat;
 
     protected float moveSpeed;
@@ -26,6 +26,8 @@ public class Enemy : Entity
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         hitCollider = GetComponent<CircleCollider2D>();
+
+        defaultMat = sprite.material;
 
         isInit = true;
         isAlive = true;
