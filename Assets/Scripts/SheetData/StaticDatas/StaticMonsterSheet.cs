@@ -51,6 +51,7 @@ public class Monsterdata
         spawnProb = float.Parse(args[i++]);
         increaseProb = float.Parse(args[i++]);
         maxProb = float.Parse(args[i++]);
+        spawnTime = float.Parse(args[i++]);
     }
 
     public bool GetSpawnProb(float gameTime)
