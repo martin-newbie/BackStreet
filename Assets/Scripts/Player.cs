@@ -80,14 +80,14 @@ public class Player : Entity
         slash.transform.rotation = Quaternion.Euler(0, 0, rot);
     }
 
-    public override void OnDamage(Entity from, int damage)
+    public override void OnDamage(Entity from, float damage)
     {
         if (!damagedAble) return;
         if (!isAlive) return;
 
         hpBar.StartHpMove(100, hp, hp - damage);
         hp -= damage;
-        InGameManager.Instance.hpGauge.SetGauge(hp, 100);
+        InGameManager.Instance.hpGauge.SetGauge(hp, maxHp);
 
         int dir = transform.position.x > from.transform.position.x ? 1 : -1;
         DamageTextManager.Instance.PrintText(transform.position, damage, dir);

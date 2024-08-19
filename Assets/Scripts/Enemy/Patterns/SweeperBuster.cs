@@ -13,7 +13,7 @@ public class SweeperBuster : Enemy
     float rangeInside = 8f;
     float rangeOutside = 11f;
 
-    public override void InitEnemy(EnemyData _enemyData, Transform _target, Action<Enemy> retire)
+    public override void InitEnemy(Monsterdata _enemyData, Transform _target, Action<Enemy> retire)
     {
         base.InitEnemy(_enemyData, _target, retire);
         retireAction += RetireExplosion;
@@ -59,7 +59,7 @@ public class SweeperBuster : Enemy
         obj.GetComponent<Player>().OnDamage(this, damage);
     }
 
-    public override void OnDamage(Entity from, int damage)
+    public override void OnDamage(Entity from, float damage)
     {
         base.OnDamage(from, damage);
         retireAction?.Invoke(this);

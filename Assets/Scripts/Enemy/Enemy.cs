@@ -9,7 +9,7 @@ public class Enemy : Entity
     public Material damagedMat;
 
     protected float moveSpeed;
-    protected int damage;
+    protected float damage;
     protected bool isInit = false;
     protected bool isAlive;
     protected Transform target;
@@ -17,9 +17,9 @@ public class Enemy : Entity
     protected Action<Enemy> retireAction;
     protected Animator animator;
     protected CircleCollider2D hitCollider;
-    protected EnemyData enemyData;
+    protected Monsterdata monsterData;
 
-    public virtual void InitEnemy(EnemyData _enemyData, Transform _target, Action<Enemy> retire)
+    public virtual void InitEnemy(Monsterdata _monsterdata, Transform _target, Action<Enemy> retire)
     {
         target = _target;
 
@@ -33,11 +33,11 @@ public class Enemy : Entity
         isAlive = true;
         retireAction = retire;
 
-        enemyData = _enemyData;
-        moveSpeed = enemyData.moveSpeed;
-        damage = enemyData.atkDamage;
-        maxHp = enemyData.maxHp;
-        hp = enemyData.maxHp;
+        monsterData = _monsterdata;
+        moveSpeed = monsterData.moveSpeed;
+        damage = monsterData.damage;
+        maxHp = monsterData.maxHp;
+        hp = monsterData.maxHp;
     }
 
     private void Update()
@@ -80,7 +80,7 @@ public class Enemy : Entity
         player.OnDamage(this, damage);
     }
 
-    public override void OnDamage(Entity from, int damage)
+    public override void OnDamage(Entity from, float damage)
     {
         if (!isAlive) return;
 

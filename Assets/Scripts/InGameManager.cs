@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 public class InGameManager : MonoBehaviour
 {
@@ -33,7 +29,7 @@ public class InGameManager : MonoBehaviour
 
     void Start()
     {
-        spawner.StartWave();
+        spawner.StartWave(0);
     }
 
     void Update()

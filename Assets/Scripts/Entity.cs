@@ -4,10 +4,10 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-    protected int maxHp;
-    protected int hp;
+    protected float maxHp;
+    protected float hp;
 
-    public abstract void OnDamage(Entity from, int damage);
+    public abstract void OnDamage(Entity from, float damage);
 
 
     protected virtual void SetDir(float dir)

@@ -7,7 +7,7 @@ public class HpGaugeBox : MonoBehaviour
 {
     public Image hpGauge;
 
-    public void SetGauge(int cur, int max)
+    public void SetGauge(float cur, float max)
     {
         hpGauge.fillAmount = (float)cur / (float)max;
     }

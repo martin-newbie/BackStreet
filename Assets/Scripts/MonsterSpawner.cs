@@ -11,54 +11,53 @@ public class MonsterSpawner : MonoBehaviour
     }
 
     public Enemy[] enemyPrefabs;
-
-    List<Enemy> curEnemy = new List<Enemy>();
-    List<WaveData> waveDatas = new List<WaveData>();
-
     bool gameActive = false;
 
-    public void StartWave()
+    public IStage stageBehaviour;
+
+    public void StartWave(int stageIdx)
     {
-        gameActive = true;
         // 333... 1978
-        for (int i = 0; i < 13; i++)
+
+        switch (stageIdx)
         {
-            waveDatas.Add(StaticDataManager.GetWaveData(i));
+            case 0:
+                stageBehaviour = new StageCleaners();
+                break;
+            default:
+                break;
         }
+
+        stageBehaviour.Init(this);
+        gameActive = true;
     }
 
     void Update()
     {
         if (!gameActive) return;
 
-        for (int i = 0; i < waveDatas.Count; i++)
-        {
-            SpawnLogic(InGameManager.Instance.playTime, waveDatas[i]);
-        }
+        SpawnLogic(InGameManager.Instance.playTime);
     }
 
-    void SpawnLogic(float gameTime, WaveData spawnData)
+    void SpawnLogic(float gameTime)
     {
-        if (spawnData.GetSpawnProba(gameTime))
-        {
-            var enemyData = StaticDataManager.GetEnemyData(spawnData.enemyIdx);
-            var spawnPos = InGameManager.Instance.curPlayer.transform.position + (Vector3)(Random.insideUnitCircle.normalized * 15f);
-            var enemy = Instantiate(enemyPrefabs[enemyData.prefabIndex], spawnPos, Quaternion.identity);
-            enemy.InitEnemy(enemyData, InGameManager.Instance.curPlayer.transform, CommonEnemyRetireAction);
-            curEnemy.Add(enemy);
-        }
+        stageBehaviour.Spawn(gameTime);
     }
 
-    void CommonEnemyRetireAction(Enemy subject)
+    public Enemy SpawnEnemy(int idx)
     {
-        var pos = subject.transform.position;
-        InGameManager.Instance.SpawnExpItem(pos);
-        curEnemy.Remove(subject);
-        Destroy(subject.gameObject);
+        var randomPos = InGameManager.Instance.curPlayer.transform.position + (Vector3)(Random.insideUnitCircle * 15f);
+        return Instantiate(enemyPrefabs[idx], randomPos, Quaternion.identity);
     }
 
     public void StopSpawn()
     {
         gameActive = false;
     }
+}
+
+public interface IStage
+{
+    void Init(MonsterSpawner manager);
+    void Spawn(float gameTime);
 }

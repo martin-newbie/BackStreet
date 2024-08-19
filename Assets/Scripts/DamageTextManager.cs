@@ -26,7 +26,7 @@ public class DamageTextManager : MonoBehaviour
         }
     }
 
-    public void PrintText(Vector3 pos, int damage, int dir)
+    public void PrintText(Vector3 pos, float damage, int dir)
     {
         var text = textPool.Pop();
         text.gameObject.SetActive(true);
