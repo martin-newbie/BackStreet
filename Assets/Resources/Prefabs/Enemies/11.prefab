@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7697697531183322311}
   - component: {fileID: 7697697531183322310}
   m_Layer: 7
-  m_Name: 4-Greed
+  m_Name: 11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

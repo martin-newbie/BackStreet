@@ -10,7 +10,7 @@ public class MonsterSpawner : MonoBehaviour
         Instance = this;
     }
 
-    public Enemy[] enemyPrefabs;
+    Enemy[] enemyPrefabs;
     bool gameActive = false;
 
     public IStage stageBehaviour;
@@ -18,6 +18,12 @@ public class MonsterSpawner : MonoBehaviour
     public void StartWave(int stageIdx)
     {
         // 333... 1978
+        int count = StaticDataManager.Instance.waveData.datas.Count;
+        enemyPrefabs = new Enemy[count];
+        for (int i = 0; i < count; i++)
+        {
+            enemyPrefabs[i] = Resources.Load<Enemy>($"Prefabs/Enemies/{i}");
+        }
 
         switch (stageIdx)
         {

@@ -1533,12 +1533,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 2226882697431889821, guid: bb344250d59c7fd4aa7ca3c6b64e4568, type: 3}
-  - {fileID: 6953046059082003374, guid: 9b9edd047869e304f80083cb5e2e58a0, type: 3}
-  - {fileID: 3143748836896689278, guid: 562e50b7897ddc44aa52c49609544629, type: 3}
-  - {fileID: 5603743109397061897, guid: e1c760d2e5f3a534ca1de347abeeb1ad, type: 3}
-  - {fileID: 7697697531183322311, guid: 0d942a9b4ebb3d242a702a55f3ff7fe1, type: 3}
-  - {fileID: 1140569527993541492, guid: eb7b215fad765e04297c7724a4827f20, type: 3}
-  - {fileID: 3861460570341093319, guid: 8a82c32fa5e128f4a989a4da9eca2434, type: 3}
 --- !u!1 &1565204385
 GameObject:
   m_ObjectHideFlags: 0
